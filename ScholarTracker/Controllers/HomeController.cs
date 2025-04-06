@@ -10,6 +10,7 @@ namespace ScholarTracker.Controllers
     {
         public ActionResult Index()
         {
+            int i = 23;
             return View();
         }
 
