@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "svD";
+    Layout = "~/Views/Shared/Layout3.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Supervisor Details</h2>
+
+    <form id="supervisorForm">
+        <div class="form-group">
+            <label>Info. as per records:</label>
+            <input type="text" id="info" required>
+        </div>
+
+        <div class="form-group">
+            <label>Adhar Card No.:</label>
+            <input type="text" id="adhar" pattern="\d{12}" title="Enter 12-digit Aadhaar number" required>
+        </div>
+
+        <div class="form-group">
+            <label>PAN Card No.:</label>
+            <input type="text" id="pan" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Enter valid PAN number" required>
+        </div>
+
+        <div class="form-group">
+            <label>Title:</label>
+            <select id="title">
+                <option>Dr.</option>
+                <option>Prof.</option>
+                <option>Mr.</option>
+                <option>Ms.</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" id="firstName" required>
+        </div>
+
+        <div class="form-group">
+            <label>Middle Name:</label>
+            <input type="text" id="middleName">
+        </div>
+
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" id="lastName" required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number:</label>
+            <input type="tel" id="phone" pattern="[0-9]{10}" title="Enter 10-digit phone number" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email ID:</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Designation:</label>
+            <input type="text" id="designation" required>
+        </div>
+
+        <div class="form-group">
+            <label>Country:</label>
+            <input type="text" value="India" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>State:</label>
+            <select id="state">
+                <option>Uttar Pradesh</option>
+                <option>Delhi</option>
+                <option>Maharashtra</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>City/District:</label>
+            <input type="text" value="Lucknow" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Address:</label>
+            <textarea id="address" required></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn" class="color1">GO</button>
+    </form>
+</div>

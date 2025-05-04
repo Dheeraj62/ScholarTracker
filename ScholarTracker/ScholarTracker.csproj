@@ -120,10 +120,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GuideController.cs" />
+    <Compile Include="Controllers\HodCodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ScholarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DBHelper.cs" />
+    <Compile Include="Models\MultiData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -628,6 +633,7 @@
     <Content Include="Content\src\dist\css\icons\themify-icons\ie7\ie7.js" />
     <Content Include="Content\src\dist\css\icons\themify-icons\themify-icons.css" />
     <Content Include="Content\src\dist\css\pandalocker.min.css" />
+    <Content Include="Content\src\dist\css\style5.css" />
     <Content Include="Content\src\dist\css\style.css" />
     <Content Include="Content\src\dist\css\style.min.css" />
     <Content Include="Content\src\dist\img\button-loader-f2f2f2.gif" />
@@ -659,8 +665,8 @@
     <Content Include="Content\src\dist\js\sidebarmenu.js" />
     <Content Include="Content\src\dist\js\sidebarmenu.min.js" />
     <Content Include="Content\src\gulpfile.js" />
-    <Content Include="Content\src\html\app-calendar.html" />
-    <Content Include="Content\src\html\app-chat.html" />
+    <Content Include="Content\src\html\academicdetails.html" />
+    <Content Include="Content\src\html\personalD.html" />
     <Content Include="Content\src\html\authentication-login1.html" />
     <Content Include="Content\src\html\authentication-register1.html" />
     <Content Include="Content\src\html\chart-chart-js.html" />
@@ -677,7 +683,7 @@
     <Content Include="Content\src\html\table-datatable-basic.html" />
     <Content Include="Content\src\html\table-layout-coloured.html" />
     <Content Include="Content\src\html\table-sizing.html" />
-    <Content Include="Content\src\html\ticket-list.html" />
+    <Content Include="Content\src\html\profileodphd.html" />
     <Content Include="Content\src\html\ui-bootstrap.html" />
     <Content Include="Content\src\html\ui-breadcrumb.html" />
     <Content Include="Content\src\html\ui-buttons.html" />
@@ -1007,10 +1013,38 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Layout1.cshtml" />
+    <Content Include="Views\HodCod\ProfileodPhDScholar.cshtml" />
+    <Content Include="Views\HodCod\PersonalD.cshtml" />
+    <Content Include="Views\HodCod\academicdetails.cshtml" />
+    <Content Include="Views\HodCod\ResearchD.cshtml" />
+    <Content Include="Views\HodCod\courseWD.cshtml" />
+    <Content Include="Views\HodCod\svD.cshtml" />
+    <Content Include="Views\HodCod\csvD.cshtml" />
+    <Content Include="Views\HodCod\PublicationD.cshtml" />
+    <Content Include="Views\Shared\Layout2.cshtml" />
+    <Content Include="Views\Shared\Layout3.cshtml" />
+    <Content Include="Views\Guide\Index.cshtml" />
+    <Content Include="Views\HodCod\Index.cshtml" />
+    <Content Include="Views\Scholar\Index.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\Guide\ProfileodPhDScholar.cshtml" />
+    <Content Include="Views\Guide\courseWD.cshtml" />
+    <Content Include="Views\Guide\Objectives.cshtml" />
+    <Content Include="Views\Guide\PublicationD.cshtml" />
+    <Content Include="Views\Guide\PrePhD.cshtml" />
+    <Content Include="Views\Guide\Mentored.cshtml" />
+    <Content Include="Views\Scholar\ProfileodPhDScholar.cshtml" />
+    <Content Include="Views\Scholar\courseWD.cshtml" />
+    <Content Include="Views\Scholar\svD.cshtml" />
+    <Content Include="Views\Scholar\Objectives.cshtml" />
+    <Content Include="Views\Scholar\PublicationD.cshtml" />
+    <Content Include="Views\Scholar\RDC.cshtml" />
+    <Content Include="Views\Scholar\PrePhD.cshtml" />
+    <Content Include="Views\HodCod\ViewScholar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

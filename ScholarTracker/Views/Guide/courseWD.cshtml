@@ -1,0 +1,51 @@
+﻿@model ScholarTracker.Models.CourseWork
+
+@{
+    ViewBag.Title = "courseWD";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+
+
+@{
+    ViewData["Title"] = "Course Work";
+}
+
+<div class="container-fluid">
+    <h2 class="text-dark">Course Work</h2>
+    <form id="courseForm">
+
+        <div class="form-group">
+            <label for="mode">Mode:</label>
+            <select id="mode">
+                <option value="Regular">Regular</option>
+                <option value="Part-Time">Part-Time</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status">
+                <option value="Request">Request for New Course Work</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="studyCenter">Study Center:</label>
+            <input type="text" id="studyCenter" required>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject with Code:</label>
+            <input type="text" id="subject" placeholder="Example: AI (CS/IT251)" required>
+        </div>
+
+        <div class="form-group">
+            <label for="certificate">Certificate (if completed):</label>
+            <input type="file" id="certificate">
+        </div>
+
+        <button type="button" id="addSubject" class="color1">Add Subject</button>
+    </form>
+    </div>

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "ProfileodPhDScholar";
+    Layout = "~/Views/Shared/Layout3.cshtml";
+}
+
+<div class="container-fluid mt-3">
+    <h2 class="text-dark">Profile of PhD Scholar</h2>
+    <p class="text-dark text-center">Fill all details correctly and as per previously registered. In case of incorrect information, strict action will be taken.</p>
+
+    <form id="scholarForm">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+
+        <label for="fatherName">Father's Name:</label>
+        <input type="text" id="fatherName" name="fatherName" required>
+
+        <label for="motherName">Mother's Name:</label>
+        <input type="text" id="motherName" name="motherName" required>
+
+        <label for="admissionDate">Admission Date:</label>
+        <input type="date" id="admissionDate" name="admissionDate" required>
+
+        <label for="enrollmentNo">Enrollment No.:</label>
+        <input type="text" id="enrollmentNo" name="enrollmentNo" required pattern="[A-Za-z0-9]+" title="Only letters and numbers allowed">
+
+
+
+        <button type="submit" class="color1">Submit</button>
+    </form>
+    </div>
+

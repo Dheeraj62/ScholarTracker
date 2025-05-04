@@ -1,0 +1,184 @@
+﻿@model ScholarTracker.Models.CoSupervisorDetails
+@{
+    ViewBag.Title = "csvD";
+    Layout = "~/Views/Shared/Layout1.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Co-Supervisor Details";
+}
+@*<div class="container-fluid">
+        <div class="card-body">
+            <h5 class="text-center text-dark fs-3">Co-Supervisor Details</h5>
+            <form id="coSupervisorForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="aadhaar" class="form-label">Co-Supervisor Aadhaar No.</label>
+                        <input type="text" id="aadhaar" class="form-control" placeholder="Enter Aadhaar No." maxlength="12">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pan" class="form-label">PAN Card No.</label>
+                        <input type="text" id="pan" class="form-control" placeholder="Enter PAN No." maxlength="10">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="title" class="form-label">Title</label>
+                        <select id="title" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Dr.">Dr.</option>
+                            <option value="Prof.">Prof.</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" class="form-control" placeholder="Enter First Name">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="middleName" class="form-label">Middle Name</label>
+                        <input type="text" id="middleName" class="form-control" placeholder="Enter Middle Name">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" class="form-control" placeholder="Enter Last Name">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email ID</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter Email">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" id="phone" class="form-control" placeholder="Enter Phone No." maxlength="10">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <label for="country" class="form-label">Country</label>
+                        <select id="country" class="form-select">
+                            <option value="">Select Country</option>
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="state" class="form-label">State</label>
+                        <select id="state" class="form-select">
+                            <option value="">Select State</option>
+                            <option value="Maharashtra">Uttarpradesh</option>
+                            <option value="Karnataka">Maharashtra</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="city" class="form-label">City/District</label>
+                        <select id="city" class="form-select">
+                            <option value="">Select City</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea id="address" class="form-control" rows="2" placeholder="Enter Communication Address"></textarea>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-danger color1 mt-3" onclick="validateForm()">Submit</button>
+            </form>
+        </div>
+    </div>*@
+
+
+
+
+<div class="container-fluid">
+    <div class="card-body">
+        <h5 class="text-center text-dark fs-3">Co-Supervisor Details</h5>
+
+        <form asp-action="SubmitCoSupervisor" asp-controller="YourController" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.AadhaarNo, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.AadhaarNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Aadhaar No.", maxlength = "12" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.AadhaarNo)</div>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.PanNo, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.PanNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter PAN No.", maxlength = "10" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.PanNo)</div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.Title, new SelectList(new[] { "Dr.", "Prof." }), "-- Select --", new { @class = "form-select" })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Title)</div>
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter First Name" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.FirstName)</div>
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Middle Name" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.MiddleName)</div>
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Last Name" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.LastName)</div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Email", type = "email" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Email)</div>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Phone No.", maxlength = "10" } })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.PhoneNo)</div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.Country, new SelectList(new[] { "India" }), "-- Select Country --", new { @class = "form-select" })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Country)</div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.State, new SelectList(new[] { "Uttarpradesh", "Maharashtra" }), "-- Select State --", new { @class = "form-select" })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.State)</div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.City, new SelectList(new[] { "Mumbai", "Bangalore" }), "-- Select City --", new { @class = "form-select" })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.City)</div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = "2", placeholder = "Enter Communication Address" })
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Address)</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-danger color1 mt-3">Submit</button>
+        </form>
+    </div>
+</div>

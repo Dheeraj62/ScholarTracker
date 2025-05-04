@@ -1,0 +1,67 @@
+﻿@model ScholarTracker.Models.PhDScholar
+@{
+    ViewBag.Title = "ProfileodPhDScholar";
+    Layout = "~/Views/Shared/Layout1.cshtml";
+}
+<style>
+    .alert-dismissible .btn-close {
+        padding: 5px 20px;
+    }
+</style>
+
+<div class="container-fluid mt-3">
+    <h2 class="text-dark">Profile of PhD Scholar</h2>
+    <p class="text-dark text-center">Fill all details correctly and as per previously registered. In case of incorrect information, strict action will be taken.</p>
+
+    @if (Session["UserReg"] != null)
+    {
+        if (Session["UserReg"].ToString() == "Success")
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+                <strong><i class="bi bi-check-circle me-1"></i></strong> Scholar Register Successfully!!!
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><i class="bi bi-exclamation-triangle me-1"></i></strong> @Session["UserReg"].ToString();
+            </div>
+        }
+
+        Session["UserReg"] = null;
+    }
+
+
+    @using (Html.BeginForm())
+    {
+
+        <label for="fullName">Full Name:</label>
+        @*<input type="text" id="fullName" name="fullName" required>*@
+        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Full Name", required = "" } })
+        <div class="invalid-feedback"> @Html.ValidationMessageFor(model => model.FullName)</div>
+
+        <label for="fatherName">Father's Name:</label>
+        @*<input type="text" id="fatherName" name="fatherName" required>*@
+        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Full Name", required = "" } })
+        <div class="invalid-feedback"> @Html.ValidationMessageFor(model => model.FatherName)</div>
+
+        <label for="motherName">Mother's Name:</label>
+        @*<input type="text" id="motherName" name="motherName" required>*@
+        @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Full Name", required = "" } })
+        <div class="invalid-feedback"> @Html.ValidationMessageFor(model => model.MotherName)</div>
+
+        <label for="admissionDate">Admission Date:</label>
+        @*<input type="date" id="admissionDate" name="admissionDate" required>*@
+        @Html.EditorFor(model => model.AdmissionDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Full Name", required = "", type = "date" } })
+        <div class="invalid-feedback"> @Html.ValidationMessageFor(model => model.AdmissionDate)</div>
+
+        <label for="enrollmentNo">Enrollment No.:</label>
+        @*<input type="text" id="enrollmentNo" name="enrollmentNo" required pattern="[A-Za-z0-9]+" title="Only letters and numbers allowed">*@
+        @Html.EditorFor(model => model.EnrollmentNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Full Name", required = "" } })
+        <div class="invalid-feedback"> @Html.ValidationMessageFor(model => model.EnrollmentNo)</div>
+
+        <button type="submit" class="color1">Submit</button>
+    }
+</div>

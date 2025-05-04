@@ -1,0 +1,120 @@
+﻿@model ScholarTracker.Models.PersonalDetails
+
+@{
+    ViewBag.Title = "PersonalD";
+    Layout = "~/Views/Shared/Layout1.cshtml";
+}
+
+<div class="container-fluid mt-3">
+    <div class="card p-4">
+        <h3 class="mb-3 text-center text-dark">Personal Details</h3>
+        @using (Html.BeginForm("Save", "PersonalD", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Gender</label>
+                        @Html.DropDownListFor(model => model.Gender, new SelectList(new[] { "Female", "Male" }), "Select", new { @class = "form-select", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Religion</label>
+                        @Html.DropDownListFor(model => model.Religion, new SelectList(new[] { "Islam", "Hinduism", "Christianity" }), "Select", new { @class = "form-select", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Date of Birth</label>
+                        @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control", @type = "date", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter 10-digit number", type = "tel" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Email ID</label>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter email" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">PAN Card No.</label>
+                        @Html.EditorFor(model => model.Pan, new { htmlAttributes = new { @class = "form-control", placeholder = "Format: ABCDE1234F" } })
+                        @Html.ValidationMessageFor(model => model.Pan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Aadhar No.</label>
+                        @Html.EditorFor(model => model.Aadhar, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter 12-digit Aadhar number" } })
+                        @Html.ValidationMessageFor(model => model.Aadhar, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Communication Address</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Pin Code</label>
+                        @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", placeholder = "6-digit Pin Code" } })
+                        @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Country</label>
+                        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" id="state" value="Uttar Pradesh" disabled />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">City/District</label>
+                        <input type="text" class="form-control" id="city" value="Lucknow" disabled />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-danger color1">SAVE</button>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model ScholarTracker.Models.ResearchDetail
+
+@{
+    ViewBag.Title = "ResearchD";
+    Layout = "~/Views/Shared/Layout1.cshtml";
+}
+
+<div class="container-fluid">
+    <h2 class="text-dark">Research Details</h2>
+
+    @using (Html.BeginForm("Create", "ResearchDetail", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResearchPlace, htmlAttributes: new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.ResearchPlace, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.ResearchPlace, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudyCenter, htmlAttributes: new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.StudyCenter, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.StudyCenter, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Field, htmlAttributes: new { @class = "form-label" })
+            @Html.DropDownListFor(model => model.Field, new SelectList(new[] {
+                new { Value = "", Text = "Select Field" },
+                new { Value = "science", Text = "Science" },
+                new { Value = "engineering", Text = "Engineering" },
+                new { Value = "medicine", Text = "Medicine" }
+            }, "Value", "Text"), new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Field, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Faculty, htmlAttributes: new { @class = "form-label" })
+            @Html.DropDownListFor(model => model.Faculty, new SelectList(new[] {
+                new { Value = "", Text = "Select Faculty" },
+                new { Value = "faculty1", Text = "Faculty 1" },
+                new { Value = "faculty2", Text = "Faculty 2" }
+            }, "Value", "Text"), new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Faculty, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic, htmlAttributes: new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Topic, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Topic, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+
+</div>
