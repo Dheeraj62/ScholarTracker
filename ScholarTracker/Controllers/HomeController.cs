@@ -22,7 +22,7 @@ namespace ScholarTracker.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost]  
         public ActionResult Index(ST_User model)
         {
             try
