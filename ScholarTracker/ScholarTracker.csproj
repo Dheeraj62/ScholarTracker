@@ -1042,6 +1042,7 @@
     <Content Include="Views\Scholar\RDC.cshtml" />
     <Content Include="Views\Scholar\PrePhD.cshtml" />
     <Content Include="Views\HodCod\ViewScholar.cshtml" />
+    <Content Include="Views\Home\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

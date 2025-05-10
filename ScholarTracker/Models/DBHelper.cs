@@ -17,7 +17,7 @@ namespace ScholarTracker.Models
         private SqlConnection _conn;
         private static DBHelper instance;
         //private static string connString = "Data Source=192.168.169.0.0;User ID=sa;PWD=sa@123;Initial catalog=abc_DB;Persist Security Info=True;";
-        private static string connString = "Data Source=LAPTOP-KTO5K5Q3\\SQLEXPRESS;User ID=sa;PWD=sa;Initial catalog=Scholar_Tracker;Persist Security Info=True;";
+        private static string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
         private static readonly string RETURNVALUE = "RETURNVALUE";
         #endregion

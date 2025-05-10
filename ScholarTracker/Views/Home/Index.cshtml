@@ -46,7 +46,7 @@
                             <button type="submit" class="btn w-100 btn-dark" onclick="signIn()">Sign In</button>
                         </div>
                         <div class="col-lg-12 text-center mt-5">
-                            Don't have an account? <a href="#" class="text-danger">Sign Up</a>
+                            Don't have an account? <a href="@Url.Action("SignUp", "Home")" class="text-danger">Sign Up</a>
                         </div>
                     </div>
                 </form>
@@ -59,7 +59,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    funct)ion signIn( {
+    function signIn() {
         event.preventDefault(); // prevent default form submission
 
         const userType = $('#userType').val();
@@ -71,26 +71,34 @@
             return;
         }
 
+        // ✅ Show loader
+        $('#global-loader').removeClass('d-none');
+
         $.ajax({
             type: 'POST',
-            url: '/Home/Index', // Controller/Action
+            url: '/Home/Index',
             data: {
                 UserType: userType,
                 UserName: userName,
                 Password: password
             },
             success: function (response) {
-                // If server redirects, replace current page
-                if (response && typeof response === 'string' && response.startsWith('/')) {
+                $('#global-loader').addClass('d-none');
+
+                if (typeof response === 'string' && response.startsWith('/')) {
                     window.location.href = response;
+                } else if (response.error) {
+                    alert(response.error);
                 } else {
-                    $('body').html(response); // fallback to load entire response (View)
+                    alert("Unexpected response.");
                 }
             },
             error: function (xhr, status, error) {
+                $('#global-loader').addClass('d-none');
                 alert("Login failed. Please check your credentials.");
                 console.log("Error:", error);
             }
         });
     }
+s
 </script>

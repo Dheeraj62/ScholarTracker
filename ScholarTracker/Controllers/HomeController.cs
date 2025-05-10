@@ -11,105 +11,122 @@ using System.Reflection.Emit;
 
 namespace ScholarTracker.Controllers
 {
-    public class HomeController : Controller
-    {
-        DBHelper ObjDB = new DBHelper();
-        public ActionResult Index()
-        {
-            Session.Abandon();
-            Session.Clear();
-            return View();
-        }
+	public class HomeController : Controller
+	{
+		DBHelper ObjDB = new DBHelper();
+		public ActionResult Index()
+		{
+			Session.Abandon();
+			Session.Clear();
+			return View();
+		}
 
 
-        [HttpPost]  
-        public ActionResult Index(ST_User model)
+        [HttpPost]
+        public JsonResult Index(ST_User model)
         {
             try
             {
-                if (model.UserName != null && model.Password != null)
+                if (!string.IsNullOrWhiteSpace(model.UserName) && !string.IsNullOrWhiteSpace(model.Password))
                 {
-                    int UT = 0;
-                    string AC = "";
-                    if (model.UserType == "HODCOD")
-                    {
-                        UT = 1;
-                        AC = "HodCod";
-                    }
-                    else if (model.UserType == "GUIDE")
-                    {
-                        UT = 2;
-                        AC = "Guide";
-                    }
-                    else if (model.UserType == "SCHOLAR")
-                    {
-                        UT = 3;
-                        AC = "Scholar";
-                    }
-                    List<SqlParameter> lstParam = new List<SqlParameter>();
-                    lstParam.Clear();
-                    lstParam.Clear();
-                    lstParam.Add(new SqlParameter("@Action", UT));
-                    lstParam.Add(new SqlParameter("@ID", model.UserName));
-                    lstParam.Add(new SqlParameter("@PW", model.Password));
-                    DataSet dsSTUser = ObjDB.ExecuteDataSet(CommandType.StoredProcedure, "ExistUser", lstParam.ToArray());
-                    DataTable dtSTUSer = dsSTUser.Tables[0];
-                    var item = (dtSTUSer.Rows.Count > 0) ? "Success" : "User Does not Exists";
+                    int roleId = model.UserType == "HODCOD" ? 1 :
+                                 model.UserType == "GUIDE" ? 2 :
+                                 model.UserType == "SCHOLAR" ? 3 : 0;
 
-                    if (item == "Success")
-                    {
-                        model.Password = "";
-                        Session.Clear();
-                        Session["UserID"] = dtSTUSer.Rows[0]["ID"].ToString();
-                        Session["UserName"] = dtSTUSer.Rows[0]["UserName"].ToString(); 
-                        Session["UserPass"] = dtSTUSer.Rows[0]["Password"].ToString();
-                        return RedirectToAction("Index", AC);
-                        //return Redirect("~/SearchReference.aspx");
+                    string controllerName = model.UserType == "HODCOD" ? "HodCod" :
+                                            model.UserType == "GUIDE" ? "Guide" :
+                                            model.UserType == "SCHOLAR" ? "Scholar" : "";
 
-                    }
-                    else if (item == "User Does Not Exists")
+                    var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@RoleId", roleId),
+                new SqlParameter("@UserName", model.UserName),
+                new SqlParameter("@Password", model.Password)
+            };
+
+                    var ds = ObjDB.ExecuteDataSet(CommandType.StoredProcedure, "PROC_ExistUser", parameters.ToArray());
+                    var dt = ds.Tables[0];
+
+                    if (dt.Rows.Count > 0)
                     {
-                        model.Password = "";
-                        ViewBag.NotValidUser = item;
-                        return View();
+                        Session["UserID"] = dt.Rows[0]["UserId"].ToString();
+                        Session["UserName"] = dt.Rows[0]["UserName"].ToString();
+                        Session["UserPass"] = dt.Rows[0]["Password"].ToString();
+
+                        // ✅ Return the redirect URL instead of redirecting
+                        return Json("/" + controllerName + "/Index");
                     }
 
-                    else
-                    {
-                        model.Password = "";
-                        ViewBag.FailedCount = item;
-                        return View();
-                    }
-                }
-                else
-                {
-                    model.Password = "";
-                    ViewBag.FailedCount = "User Name & Password is required";
-                    return View();
+                    return Json(new { error = "Invalid username or password." });
                 }
 
+                return Json(new { error = "Username, password, and user type are required." });
             }
             catch (Exception ex)
             {
-                model.Password = "";
-                ViewBag.FailedCount = ex.ToString();
-                return RedirectToAction("Index", "Home");
+                return Json(new { error = "Login failed: " + ex.Message });
             }
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        public ActionResult SignUp()
+		{
+			ViewBag.Message = "SignUp redirection page.";
+			return View();
+		}
 
-            return View();
-        }
-    }
+		[HttpPost]
+		public ActionResult SignUp(ST_User model)
+		{
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					int roleId = 0;
+					if (model.UserType == "HODCOD") roleId = 1;
+					else if (model.UserType == "GUIDE") roleId = 2;
+					else if (model.UserType == "SCHOLAR") roleId = 3;
+					else
+					{
+						ViewBag.Message = "Invalid user type.";
+						return View(model);
+					}
+
+					List<SqlParameter> parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@UserName", model.UserName),
+				new SqlParameter("@FirstName", model.FirstName),
+				new SqlParameter("@MiddleName", model.MiddleName ?? string.Empty),
+				new SqlParameter("@LastName", model.LastName),
+				new SqlParameter("@Password", model.Password),
+				new SqlParameter("@Mobile", model.Mobile),
+				new SqlParameter("@Email", model.Email),
+				new SqlParameter("@FkRoleId", roleId),
+				new SqlParameter("@IsActive", true)
+			};
+
+					int result = ObjDB.ExecuteNonQuery(CommandType.StoredProcedure, "PROC_AddUser", parameters.ToArray());
+
+					if (result > 0)
+					{
+						TempData["SuccessMessage"] = "User registered successfully. Please log in.";
+						return RedirectToAction("Index");
+					}
+					else
+					{
+						ViewBag.Message = "Failed to register user. Try again.";
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ViewBag.Message = "Error occurred: " + ex.Message;
+			}
+
+			return View(model);
+		}
+
+	}
 }
 

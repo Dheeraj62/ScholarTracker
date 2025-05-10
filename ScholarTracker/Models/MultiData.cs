@@ -18,37 +18,63 @@ namespace ScholarTracker.Models
     {
         public string TotalScholar { get; set; }
     }
-    public class ST_User
-    {
-        public int UID { get; set; }
-        public string UserType { get; set; }
-        public string UserName { get; set; }
-        public string EmpID { get; set; }
-        public string DID { get; set; }
-        public string DepartmentName { get; set; }
-        public string Mobile { get; set; }
-        public string Email { get; set; }
+	public class ST_User
+	{
+		public int UserID { get; set; }
 
-        [Required(ErrorMessage = "Designation is required")]
-        public string Designation { get; set; }
-        public string Department { get; set; }
-        public string UserRoll { get; set; }
+		[Required(ErrorMessage = "Username is required")]
+		[StringLength(50, MinimumLength = 3, ErrorMessage = "Username must be between 3-50 characters")]
+		[RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "Username can only contain letters, numbers, and underscores")]
+		public string UserName { get; set; }
 
-        [Required(ErrorMessage = "User ID is required")]
-        public string UserID { get; set; }
+		[Required(ErrorMessage = "First name is required")]
+		[StringLength(50, ErrorMessage = "First name cannot exceed 50 characters")]
+		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name can only contain letters")]
+		public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+		[StringLength(50, ErrorMessage = "Middle name cannot exceed 50 characters")]
+		[RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Middle name can only contain letters")]
+		public string MiddleName { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
-        public string TransUser { get; set; }
-        public DateTime TransDate { get; set; }
-        public bool IsActive { get; set; }
-    }
-    public class PhDScholar
+		[Required(ErrorMessage = "Last name is required")]
+		[StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters")]
+		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name can only contain letters")]
+		public string LastName { get; set; }
+
+		[Required(ErrorMessage = "Password is required")]
+		[DataType(DataType.Password)]
+		[StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters")]
+		[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
+			ErrorMessage = "Password must contain at least one uppercase, one lowercase, one number and one special character")]
+		public string Password { get; set; }
+
+		[Required(ErrorMessage = "Please confirm your password")]
+		[DataType(DataType.Password)]
+		[Compare("Password", ErrorMessage = "Passwords do not match")]
+		public string ConfirmPassword { get; set; }
+
+		[Required(ErrorMessage = "Mobile number is required")]
+		[Phone(ErrorMessage = "Invalid phone number")]
+		[RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Mobile number must be 10 digits")]
+		public string Mobile { get; set; }
+
+		[Required(ErrorMessage = "Email is required")]
+		[EmailAddress(ErrorMessage = "Invalid email address")]
+		[StringLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
+		public string Email { get; set; }
+
+		public DateTime CreatedDate { get; set; }
+
+		public DateTime UpdatedDate { get; set; }
+
+		public int FkRoleId { get; set; }
+
+		public int IsActive { get; set; }
+
+		[Required(ErrorMessage = "User type is required")]
+		public string UserType { get; set; }
+	}
+	public class PhDScholar
     {
         [Required]
         [Display(Name = "Full Name")]
