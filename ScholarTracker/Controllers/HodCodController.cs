@@ -22,6 +22,11 @@ namespace ScholarTracker.Controllers
             return View();
         }
 
+        public ActionResult courseWD()
+        {
+            return View();
+        }
+
         public ActionResult ProfileodPhDScholar()
         {
             if (Session["UserID"] == null)

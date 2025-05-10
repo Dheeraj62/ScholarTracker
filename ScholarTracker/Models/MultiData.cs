@@ -12,7 +12,7 @@ namespace ScholarTracker.Models
     {
         public List<Dashbord1> Dashbord1List { get; set; }
         public List<ST_User> ST_UserList { get; set; }
-        public List<PhDScholar> PhDScholarList { get; set; }
+        public List<PhDScholar> PhDScholarList { get; set; } = new List<PhDScholar> { };
     }
     public class Dashbord1
     {
