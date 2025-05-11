@@ -148,7 +148,7 @@ namespace ScholarTracker.Models
         }
         #endregion
         #region ExecuteNonQuery : Return the number of lines affected!
-        public int ExecuteNonQuery(string cmdText)
+        public int ExecuteNonQuery(string cmdText, SqlParameter sqlParameter)
         {
             return this.ExecuteNonQuery(CommandType.Text, cmdText, (SqlParameter[])null);
         }

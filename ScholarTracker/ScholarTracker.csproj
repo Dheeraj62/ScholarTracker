@@ -1051,7 +1051,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+<<<<<<< HEAD
     <Folder Include="Uploads\Publications\" />
+=======
+    <Folder Include="Models\Guide\" />
+    <Folder Include="Models\PhdScholar\" />
+    <Folder Include="Models\Scholar\" />
+>>>>>>> 0e461171205e5a7f06662a0413e1c8100a8427b8
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

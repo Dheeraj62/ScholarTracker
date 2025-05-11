@@ -1,51 +1,148 @@
 ﻿@model ScholarTracker.Models.CourseWork
-
 @{
-    ViewBag.Title = "courseWD";
+    ViewBag.Title = "Course Work";
     Layout = "~/Views/Shared/Layout3.cshtml";
+
+    // detect if we have an editId (even if zero)
+    var showForm = Request.QueryString["editId"] != null;
 }
 
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Course Work</h2>
 
-
-@{
-    ViewData["Title"] = "Course Work";
-}
-
-<div class="container-fluid">
-    <h2 class="text-dark">Course Work</h2>
-    <form id="courseForm">
-
-        <div class="form-group">
-            <label for="mode">Mode:</label>
-            <select id="mode">
-                <option value="Regular">Regular</option>
-                <option value="Part-Time">Part-Time</option>
-            </select>
+    <!-- LISTING -->
+    <div id="listContainer" style="@(showForm ? "display:none;" : "")">
+        <div class="mb-3">
+            @* Pass editId=0 so we enter “add” mode *@
+            @Html.ActionLink(
+                "Add New Course Work",
+                "courseWD", "Guide",
+                new { editId = 0 },
+                new { @class = "btn btn-primary" }
+            )
         </div>
 
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <select id="status">
-                <option value="Request">Request for New Course Work</option>
-                <option value="Completed">Completed</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="studyCenter">Study Center:</label>
-            <input type="text" id="studyCenter" required>
-        </div>
-
-        <div class="form-group">
-            <label for="subject">Subject with Code:</label>
-            <input type="text" id="subject" placeholder="Example: AI (CS/IT251)" required>
-        </div>
-
-        <div class="form-group">
-            <label for="certificate">Certificate (if completed):</label>
-            <input type="file" id="certificate">
-        </div>
-
-        <button type="button" id="addSubject" class="color1">Add Subject</button>
-    </form>
+        <table class="table table-striped table-bordered mb-5">
+            <thead class="table-light">
+                <tr>
+                    <th>Mode</th>
+                    <th>Status</th>
+                    <th>Study Center</th>
+                    <th>Subject</th>
+                    <th>Certificate</th>
+                    <th style="width:180px">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<ScholarTracker.Models.CourseWork>)ViewBag.CourseWorks)
+                {
+                    <tr>
+                        <td>@item.Mode</td>
+                        <td>@item.Status</td>
+                        <td>@item.StudyCenter</td>
+                        <td>@item.Subject</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.CertificatePath))
+                            {
+                                <a href="@item.CertificatePath" target="_blank">Download</a>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink(
+                                "Edit",
+                                "courseWD", "Guide",
+                                new { editId = item.Id },
+                                new { @class = "btn btn-sm btn-warning me-1" }
+                            )
+                            @using (Html.BeginForm(
+                                        "DeleteCourseWD", "Guide",
+                                        FormMethod.Post,
+                                        new
+                                        {
+                                            @onsubmit = "return confirm('Delete this entry?');",
+                                            @style = "display:inline"
+                                        }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", item.Id)
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+
+    <!-- FORM -->
+    <div id="formContainer" style="@(showForm ? "" : "display:none;")">
+        @using (Html.BeginForm(
+                    "courseWD", "Guide",
+                    FormMethod.Post,
+                    new { enctype = "multipart/form-data", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Mode, new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.Mode,
+                        new SelectList(new[] { "Regular", "Part-Time" }, Model.Mode),
+                        "Select Mode",
+                        new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Mode, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Status, new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.Status,
+                        new SelectList(new[] { "Request", "Completed" }, Model.Status),
+                        "Select Status",
+                        new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.StudyCenter, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.StudyCenter,
+                        new { @class = "form-control", placeholder = "Enter Study Center", required = "required" })
+                    @Html.ValidationMessageFor(m => m.StudyCenter, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.Subject, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Subject,
+                        new { @class = "form-control", placeholder = "Example: AI (CS/IT251)", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">Certificate (if completed)</label>
+                    <input type="file" name="certificate" class="form-control" />
+                    @if (!string.IsNullOrEmpty(Model.CertificatePath))
+                    {
+                        <small class="form-text text-muted">
+                            Current file: @System.IO.Path.GetFileName(Model.CertificatePath)
+                        </small>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-success">
+                    @(Model.Id == 0 ? "Add Course Work" : "Update Course Work")
+                </button>
+                <a href="@Url.Action("courseWD","Guide")" class="btn btn-secondary ms-2">
+                    Cancel
+                </a>
+            </div>
+        }
+    </div>
+</div>
