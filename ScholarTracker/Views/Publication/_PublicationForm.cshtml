@@ -1,0 +1,51 @@
+﻿@model ScholarTracker.Models.PublicationModel.Publication
+
+@using (Html.BeginForm(Model.Id == 0 ? "Create" : "Edit", "Publication", FormMethod.Post, new { id = "publicationForm", @class = "needs-validation", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Journal Index:</label>
+            @Html.DropDownListFor(model => model.JournalIndex, new SelectList(new[] { "SCI", "Scopus" }), "Select Index", new { @class = "form-select", required = "required" })
+            @Html.ValidationMessageFor(model => model.JournalIndex, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Journal Name:</label>
+            @Html.TextBoxFor(model => model.JournalName, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.JournalName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Add all other form fields similarly -->
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <label class="form-label">Upload Publication:</label>
+            @Html.TextBoxFor(model => model.PublicationFile, new { type = "file", @class = "form-control" })
+            @if (!string.IsNullOrEmpty(Model.FilePath))
+            {
+                <small class="form-text text-muted">Current file: @Path.GetFileName(Model.FilePath)</small>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-danger color1">@(Model.Id == 0 ? "Submit" : "Update")</button>
+        @if (Model.Id != 0)
+        {
+            <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+        }
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#cancelEdit").click(function () {
+            $.get("@Url.Action("PublicationD", "Publication")", function (data) {
+                $("#publicationFormContainer").html(data);
+            });
+        });
+    });
+</script>

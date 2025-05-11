@@ -1,0 +1,87 @@
+﻿@model ScholarTracker.Models.Publication
+
+@{
+    ViewBag.Title = "Edit Publication";
+    Layout = "~/Views/Shared/Layout3.cshtml";
+}
+
+<h2>Edit Publication</h2>
+
+@using (Html.BeginForm("Edit", "Publication", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.JournalIndex)
+        @Html.DropDownListFor(m => m.JournalIndex, new SelectList(new[] { "SCI", "Scopus" }, Model.JournalIndex), new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.JournalIndex, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.JournalName)
+        @Html.TextBoxFor(m => m.JournalName, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.JournalName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, "Title Of Paper")
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Publisher)
+        @Html.TextBoxFor(m => m.Publisher, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Publisher, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImpactFactor)
+        @Html.TextBoxFor(m => m.ImpactFactor, new { type = "number", step = "0.01", @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.ImpactFactor, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DateOfIssue)
+        @Html.TextBoxFor(m => m.DateOfIssue, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.DateOfIssue, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Volume)
+        @Html.TextBoxFor(m => m.Volume, new { type = "number", @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Volume, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Issue)
+        @Html.TextBoxFor(m => m.Issue, new { type = "number", @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Issue, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DOI)
+        @Html.TextBoxFor(m => m.DOI, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.DOI, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PageNo)
+        @Html.TextBoxFor(m => m.PageNo, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.PageNo, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Upload New Publication File (Leave blank to keep existing)</label>
+        <input type="file" name="PublicationFile" class="form-control" />
+    </div>
+
+    if (!string.IsNullOrEmpty(Model.FilePath))
+    {
+        <p>Current file: <a href="@Url.Content("~" + Model.FilePath)" target="_blank">@System.IO.Path.GetFileName(Model.FilePath)</a></p>
+    }
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    @Html.ActionLink("Cancel", "PublicationD", null, new { @class = "btn btn-secondary ms-2" })
+}

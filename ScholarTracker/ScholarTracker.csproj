@@ -123,12 +123,14 @@
     <Compile Include="Controllers\GuideController.cs" />
     <Compile Include="Controllers\HodCodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\ScholarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\MultiData.cs" />
+    <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1043,9 +1045,13 @@
     <Content Include="Views\Scholar\PrePhD.cshtml" />
     <Content Include="Views\HodCod\ViewScholar.cshtml" />
     <Content Include="Views\Home\SignUp.cshtml" />
+    <Content Include="Views\Publication\PublicationD.cshtml" />
+    <Content Include="Views\Publication\_PublicationForm.cshtml" />
+    <Content Include="Views\Publication\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\Publications\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

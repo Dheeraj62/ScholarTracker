@@ -16,8 +16,8 @@ namespace ScholarTracker.Controllers
 		DBHelper ObjDB = new DBHelper();
 		public ActionResult Index()
 		{
-			Session.Abandon();
-			Session.Clear();
+			//Session.Abandon();
+			//Session.Clear();
 			return View();
 		}
 

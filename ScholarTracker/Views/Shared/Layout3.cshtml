@@ -559,12 +559,7 @@
         </aside>
 
         <div class="page-wrapper">
-            <div style="color:red;">
-                Current Role: @(Session["UserRole"]?.ToString() ?? "NULL")<br>
-                Session ID: @Session.SessionID
-            </div>
             @RenderBody()
-
             <footer class="footer text-center text-muted">
                 All Rights Reserved by IUL. Designed and Developed by <a href="https://iul.ac.in">Adminmart</a>.
             </footer>
