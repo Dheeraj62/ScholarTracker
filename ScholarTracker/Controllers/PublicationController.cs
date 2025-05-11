@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -11,8 +12,8 @@ namespace ScholarTracker.Controllers
 {
 	public class PublicationController : Controller
 	{
-		private readonly string _connectionString = "Data Source=PAVILION\\SQLEXPRESS;Initial Catalog=ScholarDb;Integrated Security=True";
-		private const string UploadPath = "~/Uploads/Publications/";
+		private readonly string _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+		private string UploadPath = ConfigurationManager.AppSettings["PublicationUploadPath"];
 
 		private int GetCurrentUserId()
 		{

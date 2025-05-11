@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\GuideController.cs" />
     <Compile Include="Controllers\HodCodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1048,14 +1049,15 @@
     <Content Include="Views\Publication\PublicationD.cshtml" />
     <Content Include="Views\Publication\_PublicationForm.cshtml" />
     <Content Include="Views\Publication\Edit.cshtml" />
+    <Content Include="Views\Course\courseWD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\Publications\" />
     <Folder Include="Models\Guide\" />
     <Folder Include="Models\PhdScholar\" />
     <Folder Include="Models\Scholar\" />
-	</ItemGroup>
+    <Folder Include="Uploads\Publications\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
