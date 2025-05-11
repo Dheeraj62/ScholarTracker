@@ -1046,6 +1046,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Guide\" />
+    <Folder Include="Models\PhdScholar\" />
+    <Folder Include="Models\Scholar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -185,8 +185,10 @@ namespace ScholarTracker.Models
         [Required]
         public string Topic { get; set; }
     }
-    public class CourseWork
+    public class CourseWork 
     {
+        public int Id { get; set; }
+
         [Required]
         public string Mode { get; set; }
 
@@ -199,8 +201,8 @@ namespace ScholarTracker.Models
         [Required]
         public string Subject { get; set; }
 
-        public string Certificate { get; set; }
-
+        public string CertificatePath { get; set; }
+        public int FkUserId { get; set; }
     }
     public class SupervisorDetails
     {
