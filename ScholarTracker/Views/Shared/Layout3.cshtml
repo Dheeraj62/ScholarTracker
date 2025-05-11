@@ -282,276 +282,287 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                    @*  <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("Index", "HodCod") aria-expanded="false">
-                                <i data-feather="home" class="icon-speedometer"></i><span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>*@
+                        @*  <li class="sidebar-item">
+            <a class="sidebar-link sidebar-link" href=@Url.Action("Index", "HodCod") aria-expanded="false">
+                <i data-feather="home" class="icon-speedometer"></i><span class="hide-menu">Dashboard</span>
+            </a>
+        </li>*@
                         <!--
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href=@Url.Action("ProfileodPhDScholar","HodCod") aria-expanded="false">
-                                <i data-feather="tag" class="feather-icon"></i><span class="hide-menu">
-                                    Profile of PhD Scholar
-                                </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("PersonalD","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="message-square" class="feather-icon"></i><span class="hide-menu">Personal Details</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("academicdetails","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Academic Details</span>
-                            </a>
-                        </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href=@Url.Action("ProfileodPhDScholar","HodCod") aria-expanded="false">
+            <i data-feather="tag" class="feather-icon"></i><span class="hide-menu">
+                Profile of PhD Scholar
+            </span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("PersonalD","HodCod")
+           aria-expanded="false">
+            <i data-feather="message-square" class="feather-icon"></i><span class="hide-menu">Personal Details</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("academicdetails","HodCod")
+           aria-expanded="false">
+            <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Academic Details</span>
+        </a>
+    </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("ResearchD","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Research Details</span>
-                            </a>
-                        </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("ResearchD","HodCod")
+           aria-expanded="false">
+            <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Research Details</span>
+        </a>
+    </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("courseWD","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Course Work</span>
-                            </a>
-                        </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("courseWD","HodCod")
+           aria-expanded="false">
+            <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Course Work</span>
+        </a>
+    </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("svD","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Supervisor Details</span>
-                            </a>
-                        </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("svD","HodCod")
+           aria-expanded="false">
+            <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Supervisor Details</span>
+        </a>
+    </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("csvD","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Co-Supervisor Details</span>
-                            </a>
-                        </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("csvD","HodCod")
+           aria-expanded="false">
+            <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Co-Supervisor Details</span>
+        </a>
+    </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href=@Url.Action("PublicationD","HodCod")
-                               aria-expanded="false">
-                                <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Publication Details</span>
-                            </a>
-                        </li>
-                            -->
-
-                      @*<li class="list-divider"></li>*@
+    <li class="sidebar-item">
+        <a class="sidebar-link sidebar-link" href=@Url.Action("PublicationD","HodCod")
+           aria-expanded="false">
+            <i data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Publication Details</span>
+        </a>
+    </li>
+        -->
+                        @*<li class="list-divider"></li>*@
                         <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                               aria-expanded="false">
-                                <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">PhD Master </span>
-                            </a>
+                        @if (Session["UserRole"].ToString() == "HODCOD")
+                        {
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                   aria-expanded="false">
+                                    <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">PhD Master </span>
+                                </a>
 
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item">
-                                    <a href="form-inputs.html" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Registration
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("courseWD","HodCod")" class="sidebar-link"  >
-                                        <span class="hide-menu">
-                                            Course Work
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("courseWD","HodCod")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Allotment
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="form-checkbox-radio.html" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Objectives
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("PublicationD","HodCod")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Publications
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("ResearchD","HodCod")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            RDC (Minutes)
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("ProfileodPhdScholar","HodCod")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Pre-PhD
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="form-checkbox-radio.html" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Awarded
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item">
+                                        <a href="form-inputs.html" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Registration
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("courseWD", "HodCod")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Course Work
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("courseWD", "HodCod")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Allotment
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="form-checkbox-radio.html" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Objectives
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("PublicationD", "HodCod")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Publications
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("ResearchD", "HodCod")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                RDC (Minutes)
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("ProfileodPhdScholar", "HodCod")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Pre-PhD
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="form-checkbox-radio.html" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Awarded
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        @if (Session["UserRole"].ToString() == "GUIDE")
+                        {
+                            <li class="sidebar-item">
 
-                            <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                               aria-expanded="false">
-                                <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Supervisor </span>
-                            </a>
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                   aria-expanded="false">
+                                    <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Supervisor </span>
+                                </a>
 
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item">
-                                    <a href="form-inputs.html" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Scholar Profile
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("courseWD", "Guide")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Course Work
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("Objectives", "Guide")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Objectives
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("PublicationsD", "Guide")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Publications
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("PrePhD", "Guide")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Pre-PhD
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="@Url.Action("Mentored", "Guide")" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Mentored
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                               aria-expanded="false">
-                                <i data-feather="grid" class="feather-icon"></i><span class="hide-menu">Scholar </span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("ProfileodPhDScholar","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Scholar Profile
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("courseWD","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Course Work
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("svD","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Supervisor
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("Objectives","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Objectives
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("PublicationD","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Publications
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("RDC","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            RDC's
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href=@Url.Action("PrePhD","Scholar") class="sidebar-link">
-                                        <span class="hide-menu">
-                                            Pre-PhD
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                               aria-expanded="false">
-                                <i data-feather="bar-chart" class="feather-icon"></i><span class="hide-menu">Reports </span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item">
-                                    <a href="chart-morris.html" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            R1
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="chart-chart-js.html" class="sidebar-link">
-                                        <span class="hide-menu">
-                                            R2
-                                        </span>
-                                    </a>
-                                </li>
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item">
+                                        <a href="form-inputs.html" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Scholar Profile
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("courseWD", "Guide")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Course Work
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("Objectives", "Guide")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Objectives
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("PublicationsD", "Guide")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Publications
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("PrePhD", "Guide")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Pre-PhD
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="@Url.Action("Mentored", "Guide")" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Mentored
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        @if (Session["UserRole"].ToString() == "SCHOLAR")
+                        {
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                   aria-expanded="false">
+                                    <i data-feather="grid" class="feather-icon"></i><span class="hide-menu">Scholar </span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("ProfileodPhDScholar", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Scholar Profile
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("courseWD", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Course Work
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("svD", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Supervisor
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("Objectives", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Objectives
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("PublicationD", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Publications
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("RDC", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                RDC's
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href=@Url.Action("PrePhD", "Scholar") class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Pre-PhD
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                   aria-expanded="false">
+                                    <i data-feather="bar-chart" class="feather-icon"></i><span class="hide-menu">Reports </span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item">
+                                        <a href="chart-morris.html" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                R1
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="chart-chart-js.html" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                R2
+                                            </span>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
 
 
-                    </ul>
+                        </ul>
                 </nav>
             </div>
         </aside>
 
         <div class="page-wrapper">
-
+            <div style="color:red;">
+                Current Role: @(Session["UserRole"]?.ToString() ?? "NULL")<br>
+                Session ID: @Session.SessionID
+            </div>
             @RenderBody()
 
             <footer class="footer text-center text-muted">

@@ -49,12 +49,13 @@ namespace ScholarTracker.Controllers
 
                     if (dt.Rows.Count > 0)
                     {
-                        Session["UserID"] = dt.Rows[0]["UserId"].ToString();
+                        Session["UserID"] = dt.Rows[0]["UserID"].ToString();
                         Session["UserName"] = dt.Rows[0]["UserName"].ToString();
                         Session["UserPass"] = dt.Rows[0]["Password"].ToString();
+						Session["UserRole"] = dt.Rows[0]["RoleName"].ToString();
 
-                        // ✅ Return the redirect URL instead of redirecting
-                        return Json("/" + controllerName + "/Index");
+						// ✅ Return the redirect URL instead of redirecting
+						return Json("/" + controllerName + "/Index");
                     }
 
                     return Json(new { error = "Invalid username or password." });

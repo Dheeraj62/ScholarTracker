@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", placeholder = "Mobile Number" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", maxlength = "10", placeholder = "Mobile Number" })
                                         @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
