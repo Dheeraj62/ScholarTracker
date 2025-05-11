@@ -2,110 +2,165 @@
 
 @{
     Layout = "~/Views/Shared/Layout3.cshtml";
+    ViewBag.Title = "Publication Management";
 }
 
-<h2>Publication Details</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4"><i class="fas fa-book-open mr-2"></i>Publication Details</h2>
 
-@using (Html.BeginForm("Create", "Publication", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().JournalIndex)
-        @Html.DropDownList("JournalIndex", new SelectList(new[] { "Select Index", "SCI", "Scopus" }), new { @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().JournalName)
-        @Html.TextBox("JournalName", null, new { @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().Title)
-        @Html.TextBox("Title", null, new { @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().Publisher)
-        @Html.TextBox("Publisher", null, new { @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().ImpactFactor)
-        @Html.TextBox("ImpactFactor", null, new { @type = "number", step = "0.01", @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().DateOfIssue)
-        @Html.TextBox("DateOfIssue", null, new { @type = "date", @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().Volume)
-        @Html.TextBox("Volume", null, new { @type = "number", @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().Issue)
-        @Html.TextBox("Issue", null, new { @type = "number", @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().DOI)
-        @Html.TextBox("DOI", null, new { @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstOrDefault().PageNo)
-        @Html.TextBox("PageNo", null, new { @class = "form-control", required = "required" })
-    </div>
-
-    <div class="form-group">
-        <label>Upload File</label>
-        <input type="file" name="PublicationFile" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add Publication</button>
-}
-
-<hr />
-
-<h3>Submitted Publications</h3>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Journal Index</th>
-            <th>Title</th>
-            <th>Publisher</th>
-            <th>Impact Factor</th>
-            <th>DOI</th>
-            <th>Volume</th>
-            <th>Issue</th>
-            <th>Page No</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var pub in Model)
-        {
-            <tr>
-                <td>@pub.JournalIndex</td>
-                <td>@pub.Title</td>
-                <td>@pub.Publisher</td>
-                <td>@pub.ImpactFactor</td>
-                <td>@pub.DOI</td>
-                <td>@pub.Volume</td>
-                <td>@pub.Issue</td>
-                <td>@pub.PageNo</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = pub.Id }, new { @class = "btn btn-sm btn-warning" })
-                    @using (Html.BeginForm("Delete", "Publication", new { id = pub.Id }, FormMethod.Post))
+            <div class="card shadow mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-plus-circle mr-2"></i>Add New Publication</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Create", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation", novalidate = "novalidate" }))
                     {
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().JournalIndex, new { @class = "font-weight-bold" })
+                                    @Html.DropDownList("JournalIndex", new SelectList(new[] { "Select Index", "SCI", "Scopus" }), new { @class = "form-control", required = "required" })
+                                    <div class="invalid-feedback">Please select a journal index.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().JournalName, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("JournalName", null, new { @class = "form-control", required = "required", placeholder = "Enter journal name" })
+                                    <div class="invalid-feedback">Please provide a journal name.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().Title, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("Title", null, new { @class = "form-control", required = "required", placeholder = "Enter publication title" })
+                                    <div class="invalid-feedback">Please provide a title.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().Publisher, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("Publisher", null, new { @class = "form-control", required = "required", placeholder = "Enter publisher name" })
+                                    <div class="invalid-feedback">Please provide a publisher.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().ImpactFactor, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("ImpactFactor", null, new { @type = "number", step = "0.01", @class = "form-control", required = "required", placeholder = "Enter impact factor" })
+                                    <div class="invalid-feedback">Please provide a valid impact factor.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().DateOfIssue, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("DateOfIssue", null, new { @type = "date", @class = "form-control", required = "required" })
+                                    <div class="invalid-feedback">Please select a date of issue.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().Volume, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("Volume", null, new { @type = "number", @class = "form-control", required = "required", placeholder = "Enter volume number" })
+                                    <div class="invalid-feedback">Please provide a volume number.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().Issue, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("Issue", null, new { @type = "number", @class = "form-control", required = "required", placeholder = "Enter issue number" })
+                                    <div class="invalid-feedback">Please provide an issue number.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().DOI, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("DOI", null, new { @class = "form-control", required = "required", placeholder = "Enter DOI" })
+                                    <div class="invalid-feedback">Please provide a DOI.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstOrDefault().PageNo, new { @class = "font-weight-bold" })
+                                    @Html.TextBox("PageNo", null, new { @class = "form-control", required = "required", placeholder = "Enter page numbers" })
+                                    <div class="invalid-feedback">Please provide page numbers.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Upload Publication File</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="PublicationFile" id="PublicationFile" required>
+                                <label class="custom-file-label" for="PublicationFile">Choose file...</label>
+                                <div class="invalid-feedback">Please upload a file.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save mr-2"></i>Add Publication
+                            </button>
+                        </div>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0"><i class="fas fa-list-alt mr-2"></i>Submitted Publications</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Journal Index</th>
+                                    <th>Title</th>
+                                    <th>Publisher</th>
+                                    <th>Impact Factor</th>
+                                    <th>DOI</th>
+                                    <th>Volume</th>
+                                    <th>Issue</th>
+                                    <th>Page No</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pub in Model)
+                                {
+                                    <tr>
+                                        <td>@pub.JournalIndex</td>
+                                        <td>@pub.Title</td>
+                                        <td>@pub.Publisher</td>
+                                        <td>@pub.ImpactFactor</td>
+                                        <td><a href="https://doi.org/@pub.DOI" target="_blank">@pub.DOI</a></td>
+                                        <td>@pub.Volume</td>
+                                        <td>@pub.Issue</td>
+                                        <td>@pub.PageNo</td>
+                                        <td class="text-nowrap">
+                                            @Html.ActionLink("Edit", "Edit", new { id = pub.Id }, new { @class = "btn btn-sm btn-warning mr-1" })
+                                            @using (Html.BeginForm("Delete", "Publication", new { id = pub.Id }, FormMethod.Post, new { @class = "d-inline" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this publication?')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

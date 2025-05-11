@@ -25,9 +25,9 @@ namespace ScholarTracker.Controllers
         }
 
         public ActionResult courseWD()
-        {
-            return View();
-        }
+		{
+			return RedirectToAction("courseWD", "Course");
+		}
 
         public ActionResult Objectives()
         {
@@ -35,9 +35,9 @@ namespace ScholarTracker.Controllers
         }
 
         public ActionResult PublicationD()
-        {
-            return View();
-        }
+		{
+			return RedirectToAction("PublicationD", "Publication");
+		}
 
             public ActionResult PrePhD()
         {

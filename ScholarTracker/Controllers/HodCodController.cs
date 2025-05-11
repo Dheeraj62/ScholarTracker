@@ -23,9 +23,9 @@ namespace ScholarTracker.Controllers
         }
 
         public ActionResult courseWD()
-        {
-            return View();
-        }
+		{
+			return RedirectToAction("courseWD", "Course");
+		}
 
         public ActionResult ProfileodPhDScholar()
         {
