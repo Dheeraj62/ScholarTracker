@@ -219,7 +219,7 @@
         -->
                         @*<li class="list-divider"></li>*@
                         <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
-                        @if (Session["UserRole"].ToString() == "HODCOD")
+                        @if (Session["UserRole"]?.ToString() == "HODCOD")
                         {
                             <li class="sidebar-item">
                                 <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -250,7 +250,7 @@
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
-                                        <a href="form-checkbox-radio.html" class="sidebar-link">
+                                        <a href="@Url.Action("Objectives","Objectives")" class="sidebar-link">
                                             <span class="hide-menu">
                                                 Objectives
                                             </span>
@@ -278,7 +278,7 @@
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
-                                        <a href="form-checkbox-radio.html" class="sidebar-link">
+                                        <a href="@Url.Action("Awarded", "HodCod")" class="sidebar-link">
                                             <span class="hide-menu">
                                                 Awarded
                                             </span>
@@ -287,7 +287,7 @@
                                 </ul>
                             </li>
                         }
-                        @if (Session["UserRole"].ToString() == "GUIDE")
+                        @if (Session["UserRole"]?.ToString() == "GUIDE")
                         {
                             <li class="sidebar-item">
 
@@ -312,7 +312,7 @@
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
-                                        <a href="@Url.Action("Objectives", "Guide")" class="sidebar-link">
+                                        <a href="@Url.Action("Objectives", "Objectives")" class="sidebar-link">
                                             <span class="hide-menu">
                                                 Objectives
                                             </span>
@@ -342,7 +342,7 @@
                                 </ul>
                             </li>
                         }
-                        @if (Session["UserRole"].ToString() == "SCHOLAR")
+                        @if (Session["UserRole"]?.ToString() == "SCHOLAR")
                         {
                             <li class="sidebar-item">
                                 <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -372,7 +372,7 @@
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
-                                        <a href=@Url.Action("Objectives", "Scholar") class="sidebar-link">
+                                        <a href=@Url.Action("Objectives", "Objectives") class="sidebar-link">
                                             <span class="hide-menu">
                                                 Objectives
                                             </span>

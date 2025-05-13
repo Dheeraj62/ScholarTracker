@@ -38,7 +38,7 @@
         <div id="listDiv" style="display:@(showForm?"none":"block")">
             <p>
                 @Html.ActionLink("Add New Objective",
-                    "Objectives", "Guide",
+                    "Objectives", "Objectives",
                     new { scholarId = Model.ScholarId, editId = 0 },
                     new { @class = "btn btn-primary" })
             </p>
@@ -67,10 +67,10 @@
                                 <td>@o.Objective3</td>
                                 <td>@o.Objective4</td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Objectives", "Guide",
+                                    @Html.ActionLink("Edit", "Objectives", "Objectives",
                                         new { scholarId = o.ScholarId, editId = o.Id },
                                         new { @class = "btn btn-sm btn-warning me-1" })
-                                    @using (Html.BeginForm("DeleteObjective", "Guide", FormMethod.Post, new { style = "display:inline" }))
+                                    @using (Html.BeginForm("DeleteObjective", "Objectives", FormMethod.Post, new { style = "display:inline" }))
                                     {
                                         @Html.AntiForgeryToken()
                                         @Html.Hidden("id", o.Id)
@@ -89,7 +89,7 @@
         </div>
 
         <div id="formDiv" style="display:@(showForm?"block":"none")">
-            @using (Html.BeginForm("Objectives", "Guide", FormMethod.Post, new { @novalidate = "novalidate" }))
+            @using (Html.BeginForm("Objectives", "Objectives", FormMethod.Post, new { @novalidate = "novalidate" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.Id)
@@ -128,7 +128,7 @@
                     <button type="submit" class="btn btn-success">
                         @(Model.Id==0? "Add":"Update")
                     </button>
-                    <a href="@Url.Action("Objectives","Guide", new { scholarId=Model.ScholarId })"
+                    <a href="@Url.Action("Objectives","Objectives", new { scholarId=Model.ScholarId })"
                        class="btn btn-secondary ms-2">Cancel</a>
                 </div>
             }

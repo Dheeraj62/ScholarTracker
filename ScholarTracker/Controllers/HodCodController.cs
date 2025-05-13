@@ -264,5 +264,140 @@ namespace ScholarTracker.Controllers
             return View();
         }
 
+        #region Awarded
+
+        // GET /PhdMaster/Awarded?scholarId=5[&editId=3]
+        [HttpGet]
+        public ActionResult Awarded(int? scholarId, int? editId)
+        {
+            var vm = new AwardPageViewModel();
+
+            // 1) load scholar dropdown
+            var dsS = ObjDB.ExecuteDataSet(
+                CommandType.StoredProcedure,
+                "sp_GetAllScholars"
+            );
+            foreach (DataRow r in dsS.Tables[0].Rows)
+            {
+                vm.Scholars.Add(new SelectListItem
+                {
+                    Value = r["Id"].ToString(),
+                    Text = r["Name"].ToString(),
+                    Selected = (scholarId.HasValue && (int)r["Id"] == scholarId)
+                });
+            }
+               
+
+            if (!scholarId.HasValue)
+            {
+                vm.Award = new Award();
+                return View(vm);
+            }
+
+            // 2) load listing
+            var dsA = ObjDB.ExecuteDataSet(
+                CommandType.StoredProcedure,
+                "sp_GetAwards",
+                new SqlParameter("@ScholarId", scholarId.Value)
+            );
+            foreach (DataRow r in dsA.Tables[0].Rows)
+                vm.Awards.Add(new Award
+                {
+                    Id = (int)r["Id"],
+                    ScholarId = (int)r["ScholarId"],
+                    AwardTitle = (string)r["AwardTitle"],
+                    AwardingBody = (string)r["AwardingBody"],
+                    DateOfAward = (DateTime)r["DateOfAward"],
+                    AwardType = (string)r["AwardType"],
+                    CertificatePath = r["CertificatePath"] as string
+                });
+
+            // 3) load single for edit (or new)
+            if (editId.HasValue)
+            {
+                var dsE = ObjDB.ExecuteDataSet(
+                    CommandType.StoredProcedure,
+                    "sp_GetAwardById",
+                    new SqlParameter("@Id", editId.Value)
+                );
+                if (dsE.Tables[0].Rows.Count > 0)
+                {
+                    var r = dsE.Tables[0].Rows[0];
+                    vm.Award = new Award
+                    {
+                        Id = (int)r["Id"],
+                        ScholarId = (int)r["ScholarId"],
+                        AwardTitle = (string)r["AwardTitle"],
+                        AwardingBody = (string)r["AwardingBody"],
+                        DateOfAward = (DateTime)r["DateOfAward"],
+                        AwardType = (string)r["AwardType"],
+                        CertificatePath = r["CertificatePath"] as string
+                    };
+                }
+            }
+            else
+            {
+                vm.Award = new Award { ScholarId = scholarId.Value };
+            }
+
+            return View(vm);
+        }
+
+        // POST /PhdMaster/Awarded
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Awarded(AwardPageViewModel vm, HttpPostedFileBase certificate)
+        {
+            // persist old certificate path if no new file
+            if (string.IsNullOrEmpty(vm.Award.CertificatePath))
+                vm.Award.CertificatePath = Request.Form["CertificatePath"];
+
+            if (!ModelState.IsValid)
+                return RedirectToAction("Awarded", new { scholarId = vm.Award.ScholarId });
+
+            // handle upload
+            if (certificate != null && certificate.ContentLength > 0)
+            {
+                var fn = Path.GetFileName(certificate.FileName);
+                var dir = Server.MapPath("~/Uploads");
+                Directory.CreateDirectory(dir);
+                certificate.SaveAs(Path.Combine(dir, fn));
+                vm.Award.CertificatePath = Url.Content("~/Uploads/" + fn);
+            }
+
+            // choose SP
+            string sp = vm.Award.Id == 0 ? "sp_AddAward" : "sp_UpdateAward";
+            var parms = new List<SqlParameter>();
+            if (vm.Award.Id != 0)
+                parms.Add(new SqlParameter("@Id", vm.Award.Id));
+
+            parms.AddRange(new[]{
+                new SqlParameter("@ScholarId",       vm.Award.ScholarId),
+                new SqlParameter("@AwardTitle",      vm.Award.AwardTitle),
+                new SqlParameter("@AwardingBody",    vm.Award.AwardingBody),
+                new SqlParameter("@DateOfAward",     vm.Award.DateOfAward),
+                new SqlParameter("@AwardType",       vm.Award.AwardType),
+                new SqlParameter(
+                    "@CertificatePath",
+                    (object)vm.Award.CertificatePath ?? DBNull.Value),
+                new SqlParameter("@FkUserId",
+                    Convert.ToInt32(Session["UserId"]))
+            });
+
+            ObjDB.ExecuteNonQuery(CommandType.StoredProcedure, sp, parms.ToArray());
+            return RedirectToAction("Awarded", new { scholarId = vm.Award.ScholarId });
+        }
+
+        // POST /PhdMaster/DeleteAward
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult DeleteAward(int id, int scholarId)
+        {
+            ObjDB.ExecuteNonQuery(
+                CommandType.StoredProcedure,
+                "sp_DeleteAward",
+                new SqlParameter("@Id", id)
+            );
+            return RedirectToAction("Awarded", new { scholarId });
+        }
+        #endregion
     }
 }
