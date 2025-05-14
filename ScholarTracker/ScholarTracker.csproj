@@ -125,13 +125,19 @@
     <Compile Include="Controllers\HodCodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
+    <Compile Include="Controllers\RDCMinutesController.cs" />
     <Compile Include="Controllers\ScholarController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\MultiData.cs" />
     <Compile Include="Models\PublicationModel.cs" />
+    <Compile Include="Models\RDCMinutesModel.cs" />
+    <Compile Include="Models\StudentModel.cs" />
+    <Compile Include="Models\SupervisorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1050,6 +1056,19 @@
     <Content Include="Views\Publication\_PublicationForm.cshtml" />
     <Content Include="Views\Publication\Edit.cshtml" />
     <Content Include="Views\Course\courseWD.cshtml" />
+    <Content Include="Views\Supervisor\Index.cshtml" />
+    <Content Include="Views\Supervisor\Create.cshtml" />
+    <Content Include="Views\Supervisor\Edit.cshtml" />
+    <Content Include="Views\Supervisor\Details.cshtml" />
+    <Content Include="Views\Supervisor\Delete.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\Create.cshtml" />
+    <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Student\Delete.cshtml" />
+    <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\RDCMinutes\Index.cshtml" />
+    <Content Include="Views\RDCMinutes\Create.cshtml" />
+    <Content Include="Views\RDCMinutes\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

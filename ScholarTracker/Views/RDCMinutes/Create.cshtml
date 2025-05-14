@@ -1,0 +1,147 @@
+﻿@model ScholarTracker.Models.RDCMinutesModel
+@{
+    Layout = "~/Views/Shared/Layout3.cshtml";
+    ViewBag.Title = "Create RDC Minutes";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-plus-circle me-2"></i>Create New RDC Minutes
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <!-- Participant Information -->
+                            <div class="col-md-6">
+                                <div class="form-section mb-4">
+                                    <h5 class="section-header mb-3">
+                                        <i class="fas fa-users me-2"></i>Participant Information
+                                    </h5>
+
+                                    <div class="form-group mb-3">
+                                        @Html.LabelFor(m => m.FkScholarId, new { @class = "form-label fw-bold" })
+                                        @Html.DropDownListFor(m => m.FkScholarId,
+                                                 (SelectList)ViewBag.Scholars,
+                                                 "-- Select Scholar --",
+                                                 new { @class = "form-select", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.FkScholarId, "", new { @class = "invalid-feedback" })
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        @Html.LabelFor(m => m.FkSupervisorId, new { @class = "form-label fw-bold" })
+                                        @Html.DropDownListFor(m => m.FkSupervisorId,
+                                                 (SelectList)ViewBag.Supervisors,
+                                                 "-- Select Supervisor --",
+                                                 new { @class = "form-select", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.FkSupervisorId, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meeting Information -->
+                            <div class="col-md-6">
+                                <div class="form-section mb-4">
+                                    <h5 class="section-header mb-3">
+                                        <i class="fas fa-calendar-alt me-2"></i>Meeting Information
+                                    </h5>
+
+                                    <div class="form-group mb-3">
+                                        @Html.LabelFor(m => m.MeetingDate, new { @class = "form-label fw-bold" })
+                                        @Html.TextBoxFor(m => m.MeetingDate,
+                                                 new { @class = "form-control", type = "date", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.MeetingDate, "", new { @class = "invalid-feedback" })
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        @Html.LabelFor(m => m.NextMeetingDate, new { @class = "form-label fw-bold" })
+                                        @Html.TextBoxFor(m => m.NextMeetingDate,
+                                                 new { @class = "form-control", type = "date" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Meeting Content -->
+                        <div class="form-section mb-4">
+                            <h5 class="section-header mb-3">
+                                <i class="fas fa-clipboard me-2"></i>Meeting Content
+                            </h5>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(m => m.MeetingAgenda, new { @class = "form-label fw-bold" })
+                                @Html.TextAreaFor(m => m.MeetingAgenda,
+                                         new { @class = "form-control", rows = "3", placeholder = "Enter meeting agenda items", required = "required" })
+                                @Html.ValidationMessageFor(m => m.MeetingAgenda, "", new { @class = "invalid-feedback" })
+                            </div>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(m => m.DiscussionPoints, new { @class = "form-label fw-bold" })
+                                @Html.TextAreaFor(m => m.DiscussionPoints,
+                                         new { @class = "form-control", rows = "4", placeholder = "Enter key discussion points" })
+                                <small class="form-text text-muted">Use bullet points for better readability</small>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(m => m.DecisionsTaken, new { @class = "form-label fw-bold" })
+                                @Html.TextAreaFor(m => m.DecisionsTaken,
+                                         new { @class = "form-control", rows = "3", placeholder = "Enter decisions made during the meeting" })
+                            </div>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(m => m.ActionItems, new { @class = "form-label fw-bold" })
+                                @Html.TextAreaFor(m => m.ActionItems,
+                                         new { @class = "form-control", rows = "3", placeholder = "Enter action items with responsible persons" })
+                                <small class="form-text text-muted">Include deadlines if applicable</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="fas fa-save me-2"></i>Save Minutes
+                            </button>
+                            <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4 ms-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-section {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+    }
+
+    .section-header {
+        color: #0d6efd;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 0.5rem;
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+    }
+
+    .btn-success {
+        transition: all 0.3s;
+    }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(25, 135, 84, 0.2);
+        }
+</style>

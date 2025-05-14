@@ -1,0 +1,86 @@
+﻿@model ScholarTracker.Models.Supervisor
+
+@{
+    ViewBag.Title = "Edit Supervisor";
+    Layout = "~/Views/Shared/Layout3.cshtml";
+}
+
+<h2 class="mb-4">Edit Supervisor</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="mb-3">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="row g-3">
+        <!-- Personal Info -->
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Title, "Title", new { @class = "form-label" })
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g., Dr., Mr., Mrs." } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.FirstName, "First Name", new { @class = "form-label" })
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter First Name" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.LastName, "Last Name", new { @class = "form-label" })
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Last Name" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <!-- Contact Info -->
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.AdhaarNo, "Aadhaar No", new { @class = "form-label" })
+            @Html.EditorFor(model => model.AdhaarNo, new { htmlAttributes = new { @class = "form-control", placeholder = "12-digit Aadhaar Number" } })
+            @Html.ValidationMessageFor(model => model.AdhaarNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.PancardNo, "Pancard No", new { @class = "form-label" })
+            @Html.EditorFor(model => model.PancardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "10-character PAN" } })
+            @Html.ValidationMessageFor(model => model.PancardNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <!-- Address Info -->
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Country, "Country", new { @class = "form-label" })
+            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Country" } })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.State, "State", new { @class = "form-label" })
+            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter State" } })
+            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-12">
+            @Html.LabelFor(model => model.Address, "Address", new { @class = "form-label" })
+            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = 3, placeholder = "Enter Full Address" })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i> Save
+        </button>
+        <a href="@Url.Action("Index", "Supervisor")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+}

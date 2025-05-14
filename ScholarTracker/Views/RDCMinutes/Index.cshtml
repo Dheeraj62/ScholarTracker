@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ScholarTracker.Models.RDCMinutesModel>
+@{
+    Layout = "~/Views/Shared/Layout3.cshtml";
+    ViewBag.Title = "RDC Minutes Management";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="fas fa-clipboard-list me-2"></i>RDC Minutes
+                        </h3>
+                        @Html.ActionLink("Create New", "Create", null,
+                                 new { @class = "btn btn-light" })
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th><i class="fas fa-calendar-day me-1"></i> Meeting Date</th>
+                                        <th><i class="fas fa-user-graduate me-1"></i> Scholar</th>
+                                        <th><i class="fas fa-user-tie me-1"></i> Supervisor</th>
+                                        <th class="text-center"><i class="fas fa-cogs me-1"></i> Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var m in Model)
+                                    {
+                                        <tr>
+                                            <td class="align-middle">@m.MeetingDate.ToString("dd MMM yyyy")</td>
+                                            <td class="align-middle">@m.ScholarName</td>
+                                            <td class="align-middle">@m.SupervisorName</td>
+                                            <td class="text-center text-nowrap">
+                                                <div class="btn-group" role="group">
+                                                    @Html.ActionLink("Details", "Details", new { id = m.Id },
+                                                             new
+                                                             {
+                                                                 @class = "btn btn-sm btn-info",
+                                                                 data_bs_toggle = "tooltip",
+                                                                 title = "View meeting details"
+                                                             })
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mb-0">
+                            <i class="fas fa-info-circle me-2"></i> No RDC minutes found. Click "Create New" to add a meeting record.
+                        </div>
+                    }
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="text-muted small">
+                            <i class="fas fa-database me-1"></i> Total Records: @Model.Count()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

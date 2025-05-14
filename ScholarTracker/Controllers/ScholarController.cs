@@ -23,9 +23,9 @@ namespace ScholarTracker.Controllers
 			return RedirectToAction("courseWD", "Course");
 		}
         public ActionResult svD()
-        {
-            return View();
-        }
+		{
+			return RedirectToAction("Index", "Supervisor");
+		}
 
         public ActionResult Objectives()
         {
