@@ -17,9 +17,9 @@ namespace ScholarTracker.Controllers
         [HttpGet]
         public ActionResult Objectives(int? scholarId, int? editId)
         {
-            if (Session["UserId"] == null)
-                return RedirectToAction("Login", "Account");
-            int userId = Convert.ToInt32(Session["UserId"]);
+            if (Session["UserID"] == null)
+                return RedirectToAction("Index", "Home");
+            int userId = Convert.ToInt32(Session["UserID"]);
 
             // 1) Load Scholar dropdown
             var scholars = new List<SelectListItem>();
@@ -60,10 +60,10 @@ namespace ScholarTracker.Controllers
                         {
                             Id = (int)r["Id"],
                             ScholarId = (int)r["ScholarId"],
-                            Objective1 = (int)r["Objective1"],
-                            Objective2 = (int)r["Objective2"],
-                            Objective3 = (int)r["Objective3"],
-                            Objective4 = (int)r["Objective4"]
+                            Objective1 = r["Objective1"].ToString(),
+                            Objective2 = (string)r["Objective2"].ToString(),
+                            Objective3 = (string)r["Objective3"].ToString(),
+                            Objective4 = r["Objective4"].ToString()
                         });
                 }
                 ViewBag.Objectives = list;
@@ -84,10 +84,10 @@ namespace ScholarTracker.Controllers
                         {
                             Id = (int)r["Id"],
                             ScholarId = (int)r["ScholarId"],
-                            Objective1 = (int)r["Objective1"],
-                            Objective2 = (int)r["Objective2"],
-                            Objective3 = (int)r["Objective3"],
-                            Objective4 = (int)r["Objective4"]
+                            Objective1 = r["Objective1"].ToString(),
+                            Objective2 = r["Objective2"].ToString(),
+                            Objective3 = r["Objective3"].ToString(),
+                            Objective4 = r["Objective4"].ToString()
                         };
                     }
                 }
@@ -105,9 +105,9 @@ namespace ScholarTracker.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Objectives(Objectives model)
         {
-            if (Session["UserId"] == null)
-                return RedirectToAction("Login", "Account");
-            int userId = Convert.ToInt32(Session["UserId"]);
+            if (Session["UserID"] == null)
+                return RedirectToAction("Index", "Home");
+            int userId = Convert.ToInt32(Session["UserID"]);
 
             // validation
             if (!ModelState.IsValid)
@@ -151,7 +151,7 @@ namespace ScholarTracker.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult DeleteObjective(int id, int scholarId)
         {
-            int userId = Convert.ToInt32(Session["UserId"]);
+            int userId = Convert.ToInt32(Session["UserID"]);
             ObjDB.ExecuteNonQuery(
                 CommandType.StoredProcedure,
                 "sp_DeleteObjective",
