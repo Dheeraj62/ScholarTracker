@@ -1,0 +1,155 @@
+﻿@model ScholarTracker.Models.AwardPageViewModel
+@{
+    ViewBag.Title = "Awarded";
+    Layout = "~/Views/Shared/Layout3.cshtml";
+
+    bool hasScholar = Model.Scholars.Any(s => s.Selected);
+    bool showForm = hasScholar && Model.Award.Id != 0;
+}
+
+<div class="container mt-4">
+    <h2>Awarded</h2>
+
+    <!-- Scholar picker -->
+    <div class="mb-3">
+        <label>Select Scholar:</label>
+        <select class="form-select"
+                onchange="location='?scholarId='+this.value">
+            <option value="">-- choose scholar --</option>
+            @foreach (var s in Model.Scholars)
+            {
+                <option value="@s.Value" @(s.Selected ? "selected" : "")>
+                    @s.Text
+                </option>
+            }
+        </select>
+    </div>
+
+    @if (!hasScholar)
+    {
+        <div class="alert alert-info">
+            Please select a scholar to view or add awards.
+        </div>
+    }
+    else
+    {
+        <!-- listing -->
+        <div id="listDiv" style="@(showForm?"display:none":"")">
+            <p>
+                @Html.ActionLink("Add New Award",
+                                 "Awarded", "HodCod",
+                                 new { scholarId = Model.Award.ScholarId, editId = 0 },
+                                 new { @class = "btn btn-primary" })
+            </p>
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Body</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Certificate</th>
+                        <th style="width:150px">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int sn = 1;
+                        foreach (var a in Model.Awards)
+                        {
+                            <tr>
+                                <td>@(sn++)</td>
+                                <td>@a.AwardTitle</td>
+                                <td>@a.AwardingBody</td>
+                                <td>@a.DateOfAward:yyyy-MM-dd</td>
+                                <td>@a.AwardType</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(a.CertificatePath))
+                                    {
+                                        <a href="@a.CertificatePath" target="_blank">View</a>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Awarded", "HodCod",
+                                        new { scholarId = a.ScholarId, editId = a.Id },
+                                        new { @class = "btn btn-sm btn-warning me-1" })
+                                    @using (Html.BeginForm("DeleteAward", "HodCod", FormMethod.Post, new { style = "display:inline" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", a.Id)
+                                        @Html.Hidden("scholarId", a.ScholarId)
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Delete this award?');">
+                                            Delete
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- form -->
+        <div id="formDiv" style="@(showForm?"":"display:none")">
+            @using (Html.BeginForm("Awarded", "HodCod", FormMethod.Post, new { enctype = "multipart/form-data", novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Award.Id)
+                @Html.HiddenFor(m => m.Award.ScholarId)
+                @Html.HiddenFor(m => m.Award.CertificatePath)
+
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Award.AwardTitle)
+                        @Html.TextBoxFor(m => m.Award.AwardTitle,
+                            new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Award.AwardTitle, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Award.AwardingBody)
+                        @Html.TextBoxFor(m => m.Award.AwardingBody,
+                            new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Award.AwardingBody, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Award.DateOfAward)
+                        @Html.TextBoxFor(m => m.Award.DateOfAward,
+                            new { @class = "form-control", type = "date", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Award.DateOfAward, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.Award.AwardType)
+                        @Html.DropDownListFor(m => m.Award.AwardType,
+                            new SelectList(new[] { "National", "International", "Institutional", "Fellowship", "Grant" }, Model.Award.AwardType),
+                            "Select Type",
+                            new { @class = "form-select", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Award.AwardType, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Certificate / Document</label>
+                        <input type="file" name="certificate" class="form-control" />
+                        @if (!string.IsNullOrEmpty(Model.Award.CertificatePath))
+                        {
+                            <small class="text-muted">
+                                Current: @Path.GetFileName(Model.Award.CertificatePath)
+                            </small>
+                        }
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">
+                        @(Model.Award.Id==0?"Add Award":"Update Award")
+                    </button>
+                    <a href="@Url.Action("Awarded","HodCod", new { scholarId=Model.Award.ScholarId })"
+                       class="btn btn-secondary ms-2">Cancel</a>
+                </div>
+            }
+        </div>
+    }
+</div>

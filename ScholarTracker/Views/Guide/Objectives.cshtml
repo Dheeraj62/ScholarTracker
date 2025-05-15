@@ -1,8 +1,137 @@
-﻿
+﻿@model ScholarTracker.Models.Objectives
 @{
     ViewBag.Title = "Objectives";
     Layout = "~/Views/Shared/Layout3.cshtml";
+
+    bool hasScholar = ViewBag.Scholars != null
+                   && ((List<SelectListItem>)ViewBag.Scholars)
+                        .Any(s => s.Selected);
+    bool showForm = hasScholar && Model.ScholarId != 0;
 }
 
-<h2>Objectives</h2>
+<div class="container mt-4">
+    <h2>Objectives</h2>
 
+    <!-- 1) Scholar Dropdown -->
+    <div class="mb-3">
+        <label>Select Scholar:</label>
+        <select id="scholarSelect" class="form-select"
+                onchange="location='?scholarId='+this.value">
+            <option value="">-- choose scholar --</option>
+            @foreach (var s in (List<SelectListItem>)ViewBag.Scholars)
+            {
+                <option value="@s.Value" @(s.Selected ? "selected" : "")>
+                    @s.Text
+                </option>
+            }
+        </select>
+    </div>
+
+    @if (!hasScholar)
+    {
+        <div class="alert alert-info">
+            Please select a scholar to view or add objectives.
+        </div>
+    }
+    else
+    {
+        <div id="listDiv" style="display:@(showForm?"none":"block")">
+            <p>
+                @Html.ActionLink("Add New Objective",
+                    "Objectives", "Guide",
+                    new { scholarId = Model.ScholarId, editId = 0 },
+                    new { @class = "btn btn-primary" })
+            </p>
+
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Obj 1</th>
+                        <th>Obj 2</th>
+                        <th>Obj 3</th>
+                        <th>Obj 4</th>
+                        <th style="width:160px">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var list = (List<ScholarTracker.Models.Objectives>)ViewBag.Objectives;
+                        int sn = 1;
+                        foreach (var o in list)
+                        {
+                            <tr>
+                                <td>@sn++</td>
+                                <td>@o.Objective1</td>
+                                <td>@o.Objective2</td>
+                                <td>@o.Objective3</td>
+                                <td>@o.Objective4</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Objectives", "Guide",
+                                        new { scholarId = o.ScholarId, editId = o.Id },
+                                        new { @class = "btn btn-sm btn-warning me-1" })
+                                    @using (Html.BeginForm("DeleteObjective", "Guide", FormMethod.Post, new { style = "display:inline" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", o.Id)
+                                        @Html.Hidden("scholarId", o.ScholarId)
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Delete?');">
+                                            Delete
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div id="formDiv" style="display:@(showForm?"block":"none")">
+            @using (Html.BeginForm("Objectives", "Guide", FormMethod.Post, new { @novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.ScholarId)
+
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Objective1)
+                        @Html.TextBoxFor(m => m.Objective1,
+                            new { @class = "form-control", type = "number", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Objective1, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Objective2)
+                        @Html.TextBoxFor(m => m.Objective2,
+                            new { @class = "form-control", type = "number", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Objective2, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Objective3)
+                        @Html.TextBoxFor(m => m.Objective3,
+                            new { @class = "form-control", type = "number", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Objective3, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Objective4)
+                        @Html.TextBoxFor(m => m.Objective4,
+                            new { @class = "form-control", type = "number", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Objective4, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">
+                        @(Model.Id==0? "Add":"Update")
+                    </button>
+                    <a href="@Url.Action("Objectives","Guide", new { scholarId=Model.ScholarId })"
+                       class="btn btn-secondary ms-2">Cancel</a>
+                </div>
+            }
+        </div>
+    }
+</div>

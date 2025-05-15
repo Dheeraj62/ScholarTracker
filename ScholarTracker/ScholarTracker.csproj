@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -55,6 +56,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -124,6 +126,7 @@
     <Compile Include="Controllers\GuideController.cs" />
     <Compile Include="Controllers\HodCodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ObjectivesController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\RDCMinutesController.cs" />
     <Compile Include="Controllers\ScholarController.cs" />
@@ -132,8 +135,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Award.cs" />
+    <Compile Include="Models\AwardPageViewModel.cs" />
     <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\MultiData.cs" />
+    <Compile Include="Models\Objectives.cs" />
     <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Models\RDCMinutesModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
@@ -997,6 +1003,7 @@
     <Content Include="Content\src\scss\fonts\landingpage_fonts.scss" />
     <Content Include="Content\src\scss\icons\icons.scss" />
     <Content Include="Content\src\scss\style.scss" />
+    <None Include="Models\.editorconfig" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1069,6 +1076,8 @@
     <Content Include="Views\RDCMinutes\Index.cshtml" />
     <Content Include="Views\RDCMinutes\Create.cshtml" />
     <Content Include="Views\RDCMinutes\Details.cshtml" />
+    <Content Include="Views\HodCod\Awarded.cshtml" />
+    <Content Include="Views\Objectives\Objectives.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

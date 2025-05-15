@@ -1,0 +1,173 @@
+﻿@model ScholarTracker.Models.Objectives
+
+@{
+    ViewBag.Title = "Objectives";
+    Layout = "~/Views/Shared/Layout3.cshtml";
+
+    // Are we in Add/Edit mode?
+    bool isEditing = Request.QueryString["editId"] != null;
+
+    // Scholar dropdown from ViewBag
+    var scholars = ViewBag.Scholars as List<SelectListItem>
+                   ?? new List<SelectListItem>();
+    bool hasScholar = scholars.Any(s => s.Selected);
+
+    // Show the form only if a scholar is selected AND edit/add was clicked
+    bool showForm = hasScholar && isEditing;
+}
+
+<div class="container mt-4">
+    <h2>Objectives</h2>
+
+    <!-- Scholar picker -->
+    <div class="mb-3">
+        <label for="scholarSelect">Select Scholar:</label>
+        <select id="scholarSelect" class="form-select"
+                onchange="location.href='?scholarId='+this.value">
+            <option value="">-- choose scholar --</option>
+            @foreach (var s in scholars)
+            {
+                <option value="@s.Value" @(s.Selected ? "selected" : "")>
+                    @s.Text
+                </option>
+            }
+        </select>
+    </div>
+
+    @if (!hasScholar)
+    {
+        <div class="alert alert-info">
+            Please select a scholar above to view or add objectives.
+        </div>
+    }
+    else if (!showForm)
+    {
+        <!-- Listing + “Add New” button -->
+        <p>
+            @Html.ActionLink(
+                "Add New Objective",
+                "Objectives",   // action
+                "Objectives",   // controller
+                new { scholarId = Model.ScholarId, editId = 0 },
+                new { @class = "btn btn-primary" }
+            )
+        </p>
+
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Objective 1</th>
+                    <th>Objective 2</th>
+                    <th>Objective 3</th>
+                    <th>Objective 4</th>
+                    <th style="width:160px">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var list = ViewBag.Objectives as List<ScholarTracker.Models.Objectives>
+                               ?? new List<ScholarTracker.Models.Objectives>();
+                    int sn = 1;
+                    foreach (var o in list)
+                    {
+                        <tr>
+                            <td>@(sn++)</td>
+                            <td>@o.Objective1</td>
+                            <td>@o.Objective2</td>
+                            <td>@o.Objective3</td>
+                            <td>@o.Objective4</td>
+                            <td>
+                                @Html.ActionLink(
+                                    "Edit",
+                                    "Objectives",
+                                    "Objectives",
+                                    new { scholarId = Model.ScholarId, editId = o.Id },
+                                    new { @class = "btn btn-sm btn-warning me-1" }
+                                )
+                                @using (Html.BeginForm(
+                                            "DeleteObjective",
+                                            "Objectives",
+                                            FormMethod.Post,
+                                            new { style = "display:inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", o.Id)
+                                    @Html.Hidden("scholarId", Model.ScholarId)
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Delete this entry?');">
+                                        Delete
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <!-- Add / Edit Form -->
+        using (@Html.BeginForm(
+                    "Objectives",
+                    "Objectives",
+                    FormMethod.Post,
+                    new { novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.ScholarId)
+
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.Objective1)
+                    @Html.TextAreaFor(
+                        m => m.Objective1,
+                        3, 50,
+                        new { @class = "form-control", placeholder = "Enter Objective 1", required = "required" }
+                    )
+                    @Html.ValidationMessageFor(m => m.Objective1, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.Objective2)
+                    @Html.TextAreaFor(
+                        m => m.Objective2,
+                        3, 50,
+                        new { @class = "form-control", placeholder = "Enter Objective 2", required = "required" }
+                    )
+                    @Html.ValidationMessageFor(m => m.Objective2, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.Objective3)
+                    @Html.TextAreaFor(
+                        m => m.Objective3,
+                        3, 50,
+                        new { @class = "form-control", placeholder = "Enter Objective 3", required = "required" }
+                    )
+                    @Html.ValidationMessageFor(m => m.Objective3, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.Objective4)
+                    @Html.TextAreaFor(
+                        m => m.Objective4,
+                        3, 50,
+                        new { @class = "form-control", placeholder = "Enter Objective 4", required = "required" }
+                    )
+                    @Html.ValidationMessageFor(m => m.Objective4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success">
+                    @(Model.Id == 0 ? "Add Objective" : "Update Objective")
+                </button>
+                <a href="@Url.Action("Objectives", "Objectives", new { scholarId = Model.ScholarId })"
+                   class="btn btn-secondary ms-2">Cancel</a>
+            </div>
+        }
+    }
+</div>
