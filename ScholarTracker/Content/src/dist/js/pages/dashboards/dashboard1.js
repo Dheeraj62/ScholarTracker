@@ -3,15 +3,24 @@ $(function () {
     // ==============================================================
     // Campaign
     // ==============================================================
+    var publications = <%= Session["PublicationsCnt"] ?? 0 %>;
+    var students = <%= Session["StudentsCnt"] ?? 0 %>;
+    var supervisors = <%= Session["SupervisorsCnt"] ?? 0 %>;
+    var coursework = <%= Session["CourseWorksCnt"] ?? 0 %>;
+
+    console.log("Publications:", publications);
+    console.log("Students:", students);
+    console.log("Supervisors:", supervisors);
+    console.log("CourseWork:", coursework);
 
     var chart1 = c3.generate({
         bindto: '#campaign-v2',
         data: {
             columns: [
-                ['Direct Sales', 25],
-                ['Referral Sales', 15],
-                ['Afilliate Sales', 10],
-                ['Indirect Sales', 15]
+                ['Publications', <%= Session["PublicationsCnt"] %>],
+                ['Students', <%= Session["StudentsCnt"] %>],
+                ['Supervisors', <%= Session["SupervisorsCnt"] %>],
+                ['CourseWork', <%= Session["CourseWorksCnt"] %>]
             ],
 
             type: 'donut',
@@ -23,7 +32,7 @@ $(function () {
             label: {
                 show: false
             },
-            title: 'Sales',
+            title: 'Work',
             width: 18
         },
 

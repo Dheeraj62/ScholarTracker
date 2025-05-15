@@ -1,60 +1,126 @@
 ﻿@model ScholarTracker.Models.Supervisor
-
 @{
     ViewBag.Title = "Supervisor Details";
     Layout = "~/Views/Shared/Layout3.cshtml";
 }
 
-<h2 class="mb-4">Supervisor Details</h2>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-tie me-2"></i>Supervisor Details
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <!-- Personal Information Section -->
+                    <div class="mb-4">
+                        <h4 class="card-title mb-3 border-bottom pb-2">
+                            <i class="fas fa-id-card me-2"></i>Personal Information
+                        </h4>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.Title):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.Title)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.FirstName):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.FirstName)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.MiddleName):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.MiddleName)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.LastName):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.LastName)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.Designation):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.Designation)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.InfoAsPerRecords):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.InfoAsPerRecords)</div>
+                        </div>
+                    </div>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <h4 class="card-title mb-3">Personal Information</h4>
-        <div class="row mb-3">
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Title):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.Title)</div>
+                    <!-- Identification Section -->
+                    <div class="mb-4">
+                        <h4 class="card-title mb-3 border-bottom pb-2">
+                            <i class="fas fa-id-badge me-2"></i>Identification
+                        </h4>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.AdhaarNo):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.AdhaarNo)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.PancardNo):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.PancardNo)</div>
+                        </div>
+                    </div>
 
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.FirstName):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.FirstName)</div>
-
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.LastName):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.LastName)</div>
-
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Designation):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.Designation)</div>
-        </div>
-
-        <h4 class="card-title mb-3">Identification</h4>
-        <div class="row mb-3">
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.AdhaarNo):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.AdhaarNo)</div>
-
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.PancardNo):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.PancardNo)</div>
-        </div>
-
-        <h4 class="card-title mb-3">Address Information</h4>
-        <div class="row mb-3">
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Country):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.Country)</div>
-
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.State):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.State)</div>
-
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.CityDistrict):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.CityDistrict)</div>
-
-            <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Address):</strong></div>
-            <div class="col-md-8">@Html.DisplayFor(model => model.Address)</div>
+                    <!-- Address Information Section -->
+                    <div class="mb-4">
+                        <h4 class="card-title mb-3 border-bottom pb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i>Address Information
+                        </h4>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.Country):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.Country)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.State):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.State)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.CityDistrict):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.CityDistrict)</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">@Html.DisplayNameFor(model => model.Address):</div>
+                            <div class="col-md-8">@Html.DisplayFor(model => model.Address)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("Edit", "Supervisor", new { id = Model.Id })" class="btn btn-warning">
+                            <i class="fas fa-edit me-2"></i>Edit
+                        </a>
+                        <a href="@Url.Action("Index", "Supervisor")" class="btn btn-secondary">
+                            <i class="fas fa-list me-2"></i>Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="d-flex justify-content-between">
-    <a href="@Url.Action("Edit", "Supervisor", new { id = Model.Id })" class="btn btn-warning">
-        <i class="fas fa-edit"></i> Edit
-    </a>
-    <a href="@Url.Action("Index", "Supervisor")" class="btn btn-secondary">
-        <i class="fas fa-list"></i> Back to List
-    </a>
-</div>
+<style>
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+
+    .card-header {
+        border-radius: 0.5rem 0.5rem 0 0 !important;
+    }
+
+    .card-title {
+        color: #495057;
+    }
+
+    .btn-warning {
+        transition: all 0.2s;
+    }
+
+        .btn-warning:hover {
+            transform: translateY(-1px);
+        }
+
+    .border-bottom {
+        border-color: #dee2e6 !important;
+    }
+</style>

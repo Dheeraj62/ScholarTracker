@@ -10,9 +10,9 @@ namespace ScholarTracker.Controllers
     {
         // GET: Scholar
         public ActionResult Index()
-        {
-            return View();
-        }
+		{
+			return RedirectToAction("Index", "Student");
+		}
         public ActionResult ProfileodPhDScholar()
         {
             return View();

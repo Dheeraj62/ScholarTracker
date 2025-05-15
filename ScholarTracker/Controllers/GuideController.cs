@@ -15,9 +15,9 @@ namespace ScholarTracker.Controllers
         DBHelper ObjDB = new DBHelper();
         // GET: Guide
         public ActionResult Index()
-        {
-            return View();
-        }
+		{
+			return RedirectToAction("Index", "Student");
+		}
 
         public ActionResult ProfileodPhDScholar()
         {

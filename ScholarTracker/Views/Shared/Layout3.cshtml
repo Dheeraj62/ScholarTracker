@@ -58,7 +58,7 @@
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="index.html">
-                            <img src="~/Content/src/assets/images/big/icon.png" alt="" class="img-fluid" height="60px" width="70px">
+                            <img src="~/Content/src/assets/images/big/icon.jpg" alt="" class="img-fluid" width="75px">
                             <b>Scholar Tracker</b>
                         </a>
                     </div>
@@ -280,7 +280,7 @@
                                 </ul>
                             </li>
                         }
-                        @if (Session["UserRole"].ToString() == "GUIDE")
+                        @if (Session["UserRole"].ToString() == "HODCOD" || Session["UserRole"].ToString() == "GUIDE")
                         {
                             <li class="sidebar-item">
 
@@ -321,7 +321,7 @@
                                 </ul>
                             </li>
                         }
-                        @if (Session["UserRole"].ToString() == "SCHOLAR")
+                        @if (Session["UserRole"].ToString() == "HODCOD" || Session["UserRole"].ToString() == "SCHOLAR")
                         {
                             <li class="sidebar-item">
                                 <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -406,9 +406,6 @@
 
         <div class="page-wrapper">
             @RenderBody()
-            <footer class="footer text-center text-muted">
-                All Rights Reserved by IUL. Designed and Developed by <a href="https://iul.ac.in">Adminmart</a>.
-            </footer>
         </div>
     </div>
     <!-- All Jquery -->

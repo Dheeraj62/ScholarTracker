@@ -1,86 +1,299 @@
 ﻿@model ScholarTracker.Models.Supervisor
-
 @{
     ViewBag.Title = "Edit Supervisor";
     Layout = "~/Views/Shared/Layout3.cshtml";
 }
 
-<h2 class="mb-4">Edit Supervisor</h2>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-edit me-2"></i>Edit Supervisor
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Id)
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-    <div class="mb-3">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <!-- Personal Information Section -->
+                    <div class="form-section mb-4">
+                        <h5 class="section-header mb-3">
+                            <i class="fas fa-id-card me-2"></i>Personal Information
+                        </h5>
+
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Title, new { @class = "form-label fw-bold" })
+                                    @Html.EditorFor(model => model.Title, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "e.g., Dr., Mr., Mrs.",
+                                            required = "required"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "invalid-feedback" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstName, new { @class = "form-label fw-bold" })
+                                    @Html.EditorFor(model => model.FirstName, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Enter First Name",
+                                            required = "required"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "invalid-feedback" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MiddleName, new { @class = "form-label fw-bold" })
+                                    @Html.EditorFor(model => model.MiddleName, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Enter Middle Name",
+                                            required = "required"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "invalid-feedback" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastName, new { @class = "form-label fw-bold" })
+                                    @Html.EditorFor(model => model.LastName, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Enter Last Name",
+                                            required = "required"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "invalid-feedback" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Designation, new { @class = "form-label fw-bold" })
+                                    @Html.EditorFor(model => model.Designation, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Enter Designation",
+                                            required = "required"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "invalid-feedback" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.InfoAsPerRecords, new { @class = "form-label fw-bold" })
+                                    @Html.EditorFor(model => model.InfoAsPerRecords, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            placeholder = "Enter Info.",
+                                            required = "required"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.InfoAsPerRecords, "", new { @class = "invalid-feedback" })
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+
+                        <!-- Identification Section -->
+                        <div class="form-section mb-4">
+                            <h5 class="section-header mb-3">
+                                <i class="fas fa-id-badge me-2"></i>Identification
+                            </h5>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AdhaarNo, new { @class = "form-label fw-bold" })
+                                        @Html.EditorFor(model => model.AdhaarNo, new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                placeholder = "12-digit Aadhaar Number",
+                                                pattern = "\\d{12}",
+                                                title = "Please enter 12-digit Aadhaar number",
+                                                required = "required"
+                                            }
+                                        })
+                                        @Html.ValidationMessageFor(model => model.AdhaarNo, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PancardNo, new { @class = "form-label fw-bold" })
+                                        @Html.EditorFor(model => model.PancardNo, new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                placeholder = "10-character PAN",
+                                                pattern = "[A-Z]{5}[0-9]{4}[A-Z]{1}",
+                                                title = "Please enter valid PAN (e.g., ABCDE1234F)",
+                                                required = "required"
+                                            }
+                                        })
+                                        @Html.ValidationMessageFor(model => model.PancardNo, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Information Section -->
+                        <div class="form-section mb-4">
+                            <h5 class="section-header mb-3">
+                                <i class="fas fa-map-marker-alt me-2"></i>Address Information
+                            </h5>
+
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Country, new { @class = "form-label fw-bold" })
+                                        @Html.EditorFor(model => model.Country, new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                placeholder = "Enter Country",
+                                                required = "required"
+                                            }
+                                        })
+                                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.State, new { @class = "form-label fw-bold" })
+                                        @Html.EditorFor(model => model.State, new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                placeholder = "Enter State",
+                                                required = "required"
+                                            }
+                                        })
+                                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CityDistrict, new { @class = "form-label fw-bold" })
+                                        @Html.EditorFor(model => model.CityDistrict, new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                placeholder = "Enter State",
+                                                required = "required"
+                                            }
+                                        })
+                                        @Html.ValidationMessageFor(model => model.CityDistrict, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-2">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Address, new { @class = "form-label fw-bold" })
+                                        @Html.TextAreaFor(model => model.Address, new
+                                        {
+                                            @class = "form-control",
+                                            rows = 3,
+                                            placeholder = "Enter Full Address",
+                                            required = "required"
+                                        })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "invalid-feedback" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-group mt-4 d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                            <a href="@Url.Action("Index", "Supervisor")" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-arrow-left me-2"></i>Back to List
+                            </a>
+                        </div>
+                        }
+                    </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="row g-3">
-        <!-- Personal Info -->
-        <div class="col-md-4">
-            @Html.LabelFor(model => model.Title, "Title", new { @class = "form-label" })
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g., Dr., Mr., Mrs." } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-        </div>
+<style>
+    .form-section {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+    }
 
-        <div class="col-md-4">
-            @Html.LabelFor(model => model.FirstName, "First Name", new { @class = "form-label" })
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter First Name" } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-        </div>
+    .section-header {
+        color: #0d6efd;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 0.5rem;
+    }
 
-        <div class="col-md-4">
-            @Html.LabelFor(model => model.LastName, "Last Name", new { @class = "form-label" })
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Last Name" } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    .btn-success {
+        transition: all 0.3s;
+    }
 
-    <div class="row g-3 mt-3">
-        <!-- Contact Info -->
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.AdhaarNo, "Aadhaar No", new { @class = "form-label" })
-            @Html.EditorFor(model => model.AdhaarNo, new { htmlAttributes = new { @class = "form-control", placeholder = "12-digit Aadhaar Number" } })
-            @Html.ValidationMessageFor(model => model.AdhaarNo, "", new { @class = "text-danger" })
-        </div>
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(25, 135, 84, 0.2);
+        }
 
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.PancardNo, "Pancard No", new { @class = "form-label" })
-            @Html.EditorFor(model => model.PancardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "10-character PAN" } })
-            @Html.ValidationMessageFor(model => model.PancardNo, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    .invalid-feedback {
+        display: block;
+        margin-top: 0.25rem;
+    }
 
-    <div class="row g-3 mt-3">
-        <!-- Address Info -->
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.Country, "Country", new { @class = "form-label" })
-            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Country" } })
-            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.State, "State", new { @class = "form-label" })
-            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter State" } })
-            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="row g-3 mt-3">
-        <div class="col-12">
-            @Html.LabelFor(model => model.Address, "Address", new { @class = "form-label" })
-            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = 3, placeholder = "Enter Full Address" })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <button type="submit" class="btn btn-success">
-            <i class="fas fa-save"></i> Save
-        </button>
-        <a href="@Url.Action("Index", "Supervisor")" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to List
-        </a>
-    </div>
-}
+    .form-control:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+</style>

@@ -22,56 +22,66 @@ namespace ScholarTracker.Controllers
 		}
 
 
-        [HttpPost]
-        public JsonResult Index(ST_User model)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(model.UserName) && !string.IsNullOrWhiteSpace(model.Password))
-                {
-                    int roleId = model.UserType == "HODCOD" ? 1 :
-                                 model.UserType == "GUIDE" ? 2 :
-                                 model.UserType == "SCHOLAR" ? 3 : 0;
+		[HttpPost]
+		public JsonResult Index(ST_User model)
+		{
+			try
+			{
+				if (!string.IsNullOrWhiteSpace(model.UserName) && !string.IsNullOrWhiteSpace(model.Password))
+				{
+					int roleId = model.UserType == "HODCOD" ? 1 :
+								 model.UserType == "GUIDE" ? 2 :
+								 model.UserType == "SCHOLAR" ? 3 : 0;
 
-                    string controllerName = model.UserType == "HODCOD" ? "HodCod" :
-                                            model.UserType == "GUIDE" ? "Guide" :
-                                            model.UserType == "SCHOLAR" ? "Scholar" : "";
+					string controllerName = model.UserType == "HODCOD" ? "HodCod" :
+											model.UserType == "GUIDE" ? "Guide" :
+											model.UserType == "SCHOLAR" ? "Scholar" : "";
 
-                    var parameters = new List<SqlParameter>
-            {
-                new SqlParameter("@RoleId", roleId),
-                new SqlParameter("@UserName", model.UserName),
-                new SqlParameter("@Password", model.Password)
-            };
+					var parameters = new List<SqlParameter>
+			{
+				new SqlParameter("@RoleId", roleId),
+				new SqlParameter("@UserName", model.UserName),
+				new SqlParameter("@Password", model.Password)
+			};
 
-                    var ds = ObjDB.ExecuteDataSet(CommandType.StoredProcedure, "PROC_ExistUser", parameters.ToArray());
-                    var dt = ds.Tables[0];
+					var ds = ObjDB.ExecuteDataSet(CommandType.StoredProcedure, "PROC_ExistUser", parameters.ToArray());
+					var dt = ds.Tables[0];
+					var dt2 = ds.Tables[1];
 
-                    if (dt.Rows.Count > 0)
-                    {
-                        Session["UserID"] = dt.Rows[0]["UserID"].ToString();
-                        Session["UserName"] = dt.Rows[0]["UserName"].ToString();
-                        Session["UserPass"] = dt.Rows[0]["Password"].ToString();
+					if (dt2.Rows.Count > 0)
+					{
+						Session["PublicationsCnt"] = Convert.ToInt32(dt2.Rows[0]["PublicationsCnt"]);
+						Session["StudentsCnt"] = Convert.ToInt32(dt2.Rows[0]["StudentsCnt"]);
+						Session["SupervisorsCnt"] = Convert.ToInt32(dt2.Rows[0]["SupervisorsCnt"]);
+						Session["CourseWorksCnt"] = Convert.ToInt32(dt2.Rows[0]["CourseWorksCnt"]);
+					}
+
+					if (dt.Rows.Count > 0)
+					{
+						Session["UserID"] = dt.Rows[0]["UserID"].ToString();
+						Session["UserName"] = dt.Rows[0]["UserName"].ToString();
+						Session["UserPass"] = dt.Rows[0]["Password"].ToString();
 						Session["UserRole"] = dt.Rows[0]["RoleName"].ToString();
+						Session["Name"] = dt.Rows[0]["Name"].ToString();
 
 						// ✅ Return the redirect URL instead of redirecting
 						return Json("/" + controllerName + "/Index");
-                    }
+					}
 
-                    return Json(new { error = "Invalid username or password." });
-                }
+					return Json(new { error = "Invalid username or password." });
+				}
 
-                return Json(new { error = "Username, password, and user type are required." });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = "Login failed: " + ex.Message });
-            }
-        }
+				return Json(new { error = "Username, password, and user type are required." });
+			}
+			catch (Exception ex)
+			{
+				return Json(new { error = "Login failed: " + ex.Message });
+			}
+		}
 
 
 
-        public ActionResult SignUp()
+		public ActionResult SignUp()
 		{
 			ViewBag.Message = "SignUp redirection page.";
 			return View();
